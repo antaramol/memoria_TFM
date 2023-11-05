@@ -180,16 +180,47 @@ Como en este caso solo hay una persona trabajando en el desarrollo de la soluci�
 Sin embargo, pensarlo de este modo ayuda a:
 
 \begin{itemize}\itemsep1pt \parskip0pt \parsep0pt
-    \item Dividir la complejidad del problema a la mitad en primera instancia.5
+    \item Dividir la complejidad del problema a la mitad en primera instancia.
     \item Focalizar el objetivo de cada bloque.
     \item Independizar los bloques en caso de que uno de ellos no pueda ser completado.
 \end{itemize}
 
+\medskip
+
 \subsection{Creación del modelo}\label{sec:diseno-modelo}
 
 El primer bloque, \textbf{Creación del modelo}, se centra en la creación de un modelo capaz de clasificar audios según emociones humanas.
-El objetivo de este bloque será crear un modelo que pueda clasificar los audios 
+El objetivo de este bloque será crear un modelo que pueda clasificar los audios con cierta precisión entre un conjunto de emociones previamente definidas.
+
+Algunos aspectos que se tendrán en cuenta en este bloque son:
+\begin{itemize}\itemsep1pt \parskip0pt \parsep0pt
+    \item Elección del dataset de entrenamiento
+    \item Estudio del estado del arte
+    \item Elección de la arquitectura del modelo
+    \item Entrenamiento del modelo
+    \item Evaluación del modelo
+    \item Exportación del modelo
+\end{itemize}
+
+% add empty line
+\medskip
+
+
+\subsection{Despliegue del modelo}\label{sec:diseno-despliegue}
+
+El segundo bloque, \textbf{Despliegue del modelo}, se centra en la creación de una aplicación que permita utilizar el modelo creado en el bloque anterior.
+El objetivo de este bloque será utilizar el modelo de un modo determinado, ponerlo a disposición del usuario final, y que pueda ser desplegado en cualquier entorno.
+
+Algunos aspectos relevantes en cuanto a este bloque son:
+
+\begin{itemize}\itemsep1pt \parskip0pt \parsep0pt
+    \item Diseño de la interfaz
+    \item Despliegue de la aplicación
+    \item Hosting de la aplicación
+    \item Pruebas de funcionamiento
+\end{itemize}
 
 
 
 \endinput
+
