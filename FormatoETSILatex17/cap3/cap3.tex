@@ -1,0 +1,161 @@
+\chapter{Despliegue del modelo}\label{chp-03}
+\epigraph{Less is more.}{Ludwig Mies van der Rohe}
+
+\section{Problemática y solución}
+
+Nos encontramos en esta situación: el modelo ha sido entrenado o está siendo desarrollado por otro equipo.
+Nuestro trabajo consiste en implementarlo en un entorno de producción para que pueda ser utilizado por los usuarios finales.
+
+Este problema puede ser abordado de varias formas, y la solución estará altamente condicionada por los requisitos del proyecto.
+Al no tener ningún requisito impuesto para este trabajo, surgen muchos interrogantes cuya respuesta no es trivial:
+
+\begin{itemize}
+    \item \textbf{Aspecto final de la solución}: ¿Cómo se va a utilizar el modelo? ¿Qué tipo de interfaz se va a utilizar? ¿Qué tipo de dispositivo se va a utilizar?
+    \item \textbf{Requisitos de la solución}: ¿Qué requisitos de rendimiento tiene la solución? ¿Qué requisitos de seguridad tiene la solución? ¿Qué requisitos de escalabilidad tiene la solución?
+    \item \textbf{Arquitectura de la solución}: ¿En qué lenguaje se va a implementar la solución? ¿Qué tipo de arquitectura se va a utilizar? ¿Qué tipo de servidores se van a utilizar?
+    
+\end{itemize}
+
+En este caso, se ha optado por simplificar el aspecto final de la solución para centrarnos en la implementación del modelo en un entorno de producción.
+Se ha decidido crear una interfaz web que permita a los usuarios finales interactuar con el modelo, y una implementación mediante contenedores Docker para facilitar el despliegue en cualquier entorno.
+
+\section{Enfoque escogido}
+En un principio se pensó en realizar inferencia en tiempo real, es decir, que la aplicación, una vez iniciada, estuviera grabando continuamente y realizando predicciones.
+Esta opción sin embargo, no ha podido ser llevada a cabo de forma exitosa debido al tiempo de respuesta que ofrece el servidor en el que se ha desplegado la aplicación.
+
+Además, para implementarlo de forma correcta, habría que añadir diversos mecanismos que ayuden a filtrar los audios y nos permitieran extraer muestras que pudieran ser utilizadas para realizar predicciones.
+Esto implicaría detección de inicio y fin de actividad vocal, filtrado de silencios, etc.
+La complicación de este proceso, unido al tiempo de respuesta del servidor, ha hecho que se descarte esta opción.
+
+Finalmente, contamos con una aplicación web que permite a los usuarios finales grabar audios y obtener una predicción de la clase a la que pertenece el audio.
+La aplicación está pensada para ser utilizada en una sola dirección: el usuario debe iniciar la grabación, grabar un mensaje, parar la grabación y esperar el resultado.
+Una vez obtenido el resultado, puede volver a grabar otro mensaje.
+
+La aplicación es accesible desde cualquier dispositivo que tenga un navegador web a través de la dirección \url{https://www.classifier-web.com/}.
+
+
+\section{Aplicación web}
+Una forma sencilla de crear una interfaz que sea accesible desde cualquier dispositivo es crear una aplicación web.
+
+Aunque el modelo creado puede ser integrado utilizando cualquier lenguaje de programación, se ha optado por utilizar Python para la implementación de la aplicación web.
+Python cuenta con una gran cantidad de librerías que facilitan la implementación de aplicaciones web, como Flask o Django, quizás las más populares.
+
+Se ha optado por utilizar Flask, debido a que es una librería más ligera que Django y a que es más sencilla de utilizar.
+Además, contamos con cierta experiencia previa en el uso de Flask, lo que nos permite acelerar el desarrollo de la aplicación.
+
+
+\subsection{Flask}
+Flask es un microframework para Python que permite crear aplicaciones web de forma sencilla.
+
+Está diseñado para ser extensible, por lo que es posible añadirle funcionalidades mediante extensiones, aunque en este caso no vamos a utilizar ninguna.
+Sin embargo, estas extensinoes de alto nivel nos abren las puertas a posibles líneas futuras, como lecturas de bases de datos, autenticación de usuarios, etc.
+
+Utilizar Python para la creación web no siempre es la solución idónea, ya que existen otros lenguajes de programación que están más orientados a la creación de aplicaciones web.
+Sin embargo, si no se tiene experiencia previa en estos lenguajes, o el objetivo es lanzar una aplicación web de forma rápida, Flask es idóneo.
+No estamos exentos de tener que crear plantillas en otros lenguajes propios de la web, como HTML, CSS o JavaScript, pero Flask nos permite crear una aplicación web funcional en muy poco tiempo.
+
+
+\subsection{Estructura de la aplicación}
+La estructura de la aplicación es muy sencilla, y se puede ver en la figura """poner figura""""
+
+Primero el modelo es cargado en memoria, y se crea una instancia de Flask.
+
+El modelo es cargado en memoria para evitar tener que cargarlo cada vez que se realiza una predicción, lo que se traduciría en un aumento del tiempo de respuesta de la aplicación.
+Esto puede ralentizar sin embargo el arranque de la aplicaión, pero es una operación que se realiza una única vez, por lo que no es un problema.
+
+Posteriormente se crean las rutas de la aplicación, que son las direcciones a las que se puede acceder desde un navegador web.
+
+Contamos con la ruta principal, que es la que se utiliza para cargar la página principal de la aplicación, y la ruta de predicción, que es la que se utiliza para realizar las predicciones.
+
+La ruta principal simplemente carga un fichero HTML que contiene el código de la página principal.
+
+La ruta de predicción es llamada internamente mediante una petición POST cuando un usuario termina una grabación.
+La grabación se guarda localmente en el servidor momentáneamente para que el modelo pueda realizar la predicción sobre ella, y posteriormente se borra, por cuestiones de espacio y privacidad.
+
+
+
+\subsection{Interfaz web}
+El desarrollo de interfaces web es un mundo aparte, y no es el objetivo de este trabajo crear una interfaz especialmente atractiva, sino más bien que nos proporcione la funcionalidad básica.
+Existen desarrolladores especializados únicamente en el desarrollo de interfaces web, y es un campo que requiere de un conocimiento muy amplio, además de experiencia.
+
+Debido a tratar esta parte como algo secundario, sumado a la falta de conocimiento acerca del manejo de audios en la web, se ha optado por basar la interfaz en trabajo previo realizado por otros desarrolladores.
+En concreto, este proyecto ha utilizado como base """insertar referencia a la interfaz web""".
+
+La interfaz web es muy sencilla, y se puede ver en la figura """poner figura""". 
+Contiene lo básico para que un usuario pueda realizar la grabación de un audio y obtener una predicción de la clase a la que pertenece el audio.
+
+
+
+\section{Aplicación Flask en producción}
+Flask integra un servidor web de desarrollo, que es el que se utiliza por defecto cuando se lanza la aplicación, llamado Werkzeug.
+Este servidor es muy sencillo de utilizar, pero no está pensado para ser utilizado en producción, ya que no está optimizado para ello.
+
+
+\subsection{Gunicorn}
+Para lanzar la aplicación en producción, se ha optado por utilizar Gunicorn, un servidor web HTTP WSGI para Python.
+Es uno de los servidores más utilizados para lanzar aplicaciones Flask en producción, y es el que se recomienda en la documentación oficial de Flask.??????????????
+
+Gunicorn es un servidor web que se encarga de gestionar las peticiones HTTP que llegan a la aplicación, y de lanzar procesos de la aplicación para atender estas peticiones.
+Esto permite que la aplicación pueda atender varias peticiones simultáneamente, lo que se traduce en un aumento del rendimiento de la aplicación.
+
+Para lanzar un servicio Flask con Gunicorn, simplemente hay que ejecutar el siguiente comando:
+""" Insertar comando """"
+
+Este comando lanzará un servidor web en el puerto 8000, que es el puerto por defecto de Gunicorn.
+
+El siguiente paso es configurar un servidor web que actúe como proxy inverso, para que las peticiones HTTP que lleguen al servidor web sean redirigidas al servidor Gunicorn.
+
+
+\subsection{Traefik}
+Para configurar el servidor web que actúe como proxy inverso, se ha optado por utilizar Traefik, un servidor web que permite realizar balanceo de carga y que actúa como proxy inverso.
+
+Aunque Nginx es quizás el servidor web más utilizado para realizar esta tarea, se ha optado por utilizar Traefik prinipalmente por su facilidad de configuración.
+Es comentado que Nginx es más rápido que Traefik, a la vez que ofrece más funcionalidades, pero para este caso con una configuración básica es suficiente.
+
+La mayor ventaja que nos ha brindado Traefik es la facilidad de generar certificados SSL para la aplicación, lo que nos permite utilizar HTTPS.
+Esto es importante, ya que si no se utiliza HTTPS, los navegadores web no permiten acceder al micrófono del dispositivo, lo que hace imposible la grabación de audios.
+
+No es una tarea difícil de realizar correctamente para un desarrollador experimentado mediante un servidor web como Nginx, pero es mucho más sencillo de realizar con Traefik, y además, al contar con poca experiencia en este campo, nos ha permitido solventar este problema de forma rápida y sencilla.
+Además, Traefik aún está dando sus primeros pasos, y está ganando popularidad entre desarrolladores, por lo que quizás en un futuro sea una alternativa a Nginx también en entornos reales de producción.
+
+""" insertar foto de \url{https://monitor.classifier-web.com} indicando admin:admin"""
+
+\subsection{Docker}
+Para facilitar el despliegue de la aplicación en cualquier entorno, se ha optado por utilizar contenedores Docker.
+Esta tecnología permite encapsular una aplicación y sus dependencias en un contenedor, que puede ser ejecutado en cualquier entorno que tenga instalado Docker.
+De este modo nos aseguramos que únicamente tenemos que preocuparnos de que el entorno tenga instalado Docker.
+
+Esta tecnología ayuda a eliminar muchos problemas a la hora de desplegar servicios, pero incorpora otros de los que hay que ser conscientes.
+En particular, Docker presenta un problema de seguridad, ya que los contenedores son ejecutados por defecto con privilegios de root.
+Esto implicaría que si un atacante consigue acceder al contenedor, puede tener acceso a todo el sistema.
+
+Este problema se ha solventado creando un usuario no privilegiado dentro del contenedor al construir la imagen de la aplicación, y ejecutando la aplicación con este usuario.
+Sin embargo, las implicaciones de seguridad de Docker son un tema muy amplio y precisamente pueden llegar a ser determinantes para no utilizar esta tecnología en entornos de producción con requisitos de seguridad muy estrictos.
+No es el caso de este trabajo, pero es un tema que hay que tener en cuenta y debería ser estudiado en profundidad antes de utilizar Docker en entornos de producción.
+
+A pesar de ello, las ventajas que ofrece Docker son muy interesantes, y es una tecnología que ha ganando mucha popularidad en los últimos años.
+Las principales ventajas que ofrece son las siguientes:
+
+\begin{itemize}
+    \item \textbf{Portabilidad}: Docker permite encapsular una aplicación y sus dependencias en un contenedor, que puede ser ejecutado en cualquier entorno que tenga instalado Docker.
+    \item \textbf{Escalabilidad}: Docker permite crear múltiples contenedores de una misma aplicación, lo que permite escalar la aplicación de forma horizontal.
+    \item \textbf{Aislamiento}: Docker permite aislar una aplicación y sus dependencias en un contenedor, lo que permite que la aplicación no se vea afectada por otras aplicaciones que se estén ejecutando en el mismo entorno.
+    \item \textbf{Rapidez}: Docker permite crear imágenes de aplicaciones de forma rápida, lo que permite desplegar aplicaciones en muy poco tiempo.
+\end{itemize}
+
+\subsection{Docker Compose}
+Docker Compose es una herramienta que permite definir y ejectutar aplicaciones Docker de forma sencilla.
+Permite definir las imágenes de los contenedores, las redes, los volúmenes, etc., en un fichero YAML, y ejecutarlos con un único comando.
+
+Es especialmente útil cuando se tienen varias aplicaciones que dependen unas de otras, ya que permite definir todas las aplicaciones en un único fichero.
+En nuestro caso contamos solo con dos contenedores, pero crear un fichero Docker Compose nos permite definirlos de forma sencilla, construir las imágenes con las dependencias que nosotros definamos y levantar el despliegue con un único comando.
+
+""" enlace a codigo de anexo """
+
+\section{Plataforma de hosting}
+- Hablar de Aws
+- VPS Contabo: precio fijo
+
+
+
+\endinput
