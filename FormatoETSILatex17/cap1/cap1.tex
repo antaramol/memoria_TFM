@@ -6,7 +6,7 @@
 %\lettrine[lraise=0.7, lines=1, loversize=-0.25]{E}{n}
 % Introduccion sobre el auge en el empleo de IA en los ultimos años
 \lettrine[lraise=-0.1, lines=2, loversize=0.2]{D}{urante} los últimos años, la sociedad ha experimentado un auge en el empleo de la Inteligencia Artificial (IA) en diferentes ámbitos. 
-La gran capacidad de escpecialización en un problema que concreto que presentan estos sistemas, junto con la gran cantidad de datos que se generan en la actualidad, han hecho que la IA se haya convertido en una herramienta muy útil en la resolución de problemas complejos.
+La gran capacidad de escpecialización en un problema concreto que presentan estos sistemas, junto con la gran cantidad de datos que se generan en la actualidad, han hecho que la IA se haya convertido en una herramienta muy útil en la resolución de problemas complejos.
 
 Estas características han fomentado el empleo de soluciones basadas en IA, obtiendo resultados aceptables para problemas que de otro modo serían irresolubles.
 
@@ -37,7 +37,7 @@ En el capítulo \ref{chp-02} se aborda el problema de modelado, mientras que en 
 \section{Motivación}\label{sec:motivacion}
 
 La idea de realizar un modelo capaz de diferenciar emociones humanas a partir de audios surge de la participación en un proyecto anterior.
-Este proyecto, a grandes rasgos, busaba crear un modelo que sirviese de ayuda a personas a detectar emociones muy concretas para el caso de aplicación.
+Este proyecto, a grandes rasgos, busaba crear un modelo que sirviese de ayuda a las personas a detectar emociones muy concretas para el caso de aplicación.
 
 Por diversas circunstancias, el proyecto no pudo avanzar correctamente y acabó siendo abandonado.
 Sin embargo, un año más tarde y tras pensar en abordar de nuevo el problema, con un enfoque mucho más abierto, las sensaciones fueron muy positivas
@@ -63,9 +63,9 @@ Sin emargo, al no disponer de datos de entrada, es difícil avanzar en el desarr
 
 En este proyecto, al no estar diseñando la solución para un dataset concreto, se puede realizar una búsqueda más general en bancos de datos públicos y elegir alguno similar al objetivo.
 De este modo se podría haber avanzado en el desarrollo del modelo, mientras se recogían los datos por parte de la empresa.
-El aprendizaje obtenido en este asunto es que es posible avanzar en el desarrollo del modelo, aprendiendo las técnicas y requisitos necesarios para el problema, con un dataset semejante, sin necesidad de esperar a tener los datos finales.
+El aprendizaje obtenido acerca de este asunto es que es posible avanzar en el desarrollo del modelo, aprendiendo las técnicas y requisitos necesarios para el problema, con un dataset semejante, sin necesidad de esperar a tener los datos finales.
 
-\subsubsection{Enfoque}
+\subsubsection{Enfoque general}
 Durante el proyecto, fue difícil encontrar un método para abordar el problema.
 La búsqueda de proyectos que resolviesen problemas similares no fue muy fructífera, debido a la particular naturaleza del problema.
 
@@ -77,7 +77,7 @@ El enfoque de lo general a lo particular, junto con la división por bloques, pe
 
 \subsubsection{Hardware}
 Uno de los prinicpiales problemas que presenta el desarrollo de modelos de IA es la necesidad de una alta capacidad de cómputo.
-Otros inconvenientes como la necesidad de una gran cantidad de datos pueden ser apaciguados empleando técnicas de Data Augmentation, pero para entrenar un modelo complejo es necesaria una gran capacidad de cómputo.
+Otros inconvenientes, como la necesidad de una gran cantidad de datos pueden ser apaciguados empleando técnicas de Data Augmentation, pero para entrenar un modelo complejo es necesaria una gran capacidad de cómputo.
 
 No todos los problemas requieren de soluciones extremadamente complejas, de hecho en el mundo del Machine Learning (ML) a veces las soluciones más simples ofrecen mejores resultados.
 Sin embargo, como se verá más adelante, la complejidad del problema requiere de un modelo complejo, lo que nos obliga a disponer de hardware con gran capacidad de computación en paralelo si queremos obtener resultados en un tiempo razonable.
@@ -107,7 +107,7 @@ Debemos definir el objetivo y el alcance del proyecto, para no perder la visión
 
 Al mismo tiempo, se inlcuye un listado de requisitos, que ayudarán a dar soporte a la definición del objetivo.
 
-Además, se incluye la planificación temporal inicial del proyecto, en la que descatan varios hitos importantes.
+Además, se incluye la planificación temporal inicial del proyecto, en la que destacan varios hitos importantes.
 
 
 \subsection{Objetivo y alcance}\label{sec:objetivo}
@@ -142,8 +142,8 @@ Para acompañar al objetivo y el alcance, se ha diseñado una tabla de requisito
 \begin{itemize}\itemsep1pt \parskip0pt \parsep0pt
     \item \textbf{D.1:} La implementación del sistema se realizará en Python.
     \item \textbf{D.2:} El despliegue del sistema será desplegado mediante contenedores.
-    \item \textbf{D.3:} El equipo de desarrollo será un portátil personal.
-    \item \textbf{D.4:} El sistema se ejecutará en un equipo con 2vcpu y 4GB de RAM.
+    \item \textbf{D.3:} El entorno de despliegue será accesible remotamente.
+    \item \textbf{D.4:} El sistema se ejecutará en un equipo con 4vcpu y 8GB de RAM.
 \end{itemize}
 
 \subsubsection{Requisitos de seguridad}\label{sec:requisitos-seguridad}
@@ -153,8 +153,8 @@ Para acompañar al objetivo y el alcance, se ha diseñado una tabla de requisito
     \item \textbf{S.3:} El sistema debe ser robusto ante ataques de denegación de servicio.
 \end{itemize}
 
-Muchos de estos requisitos son utilizados a modo de muestra, pero no tienen mayor relevancia en el desarrollo del proyecto.
-Sin embargo, han servido para imaginar cómo podría ser el sistema en un caso de uso real, además de problemas que podrían surgir en caso de que el sistema se desplegase en un entorno real.
+Muchos de estos requisitos son utilizados a modo de muestra, pero no tienen mayor relevancia en este proyecto, ya que limitarían de forma innecesaria el desarrollo del mismo.
+Sin embargo, estos requisitos han servido para imaginar cómo podría ser el sistema en un caso de uso real, además de entender problemas que podrían surgir en caso de que el sistema se desplegase en un entorno real.
 Estos requisitos nos ayudan a dar forma a la solución final, entendiendo cómo podríamos mejorar su funcionalidad, además de su robustez.
 
 Es interesante comentar que, aunque no es alcance para este proyecto, los requisitos de seguridad pueden llegar a ser los más críticos en un caso de uso real.
@@ -168,7 +168,7 @@ Previamente, se ha explicado de qué trata el problema y de dónde surge la idea
 En esta sección, intentamos responder a la pregunta de cómo se ha abordado el problema.
 
 Siguiendo el famoso dicho, divide y venverás, se ha optado por dividir el problema en dos bloques principales: \textbf{Creación del modelo} y \textbf{Despliegue del modelo}.
-De este modo, podemos centrarnos en cada uno de los bloques por separado, sin perder la visión del proyecto.
+De este modo, podemos centrarnos en cada uno de los bloques por separado, sin perder la visión general del proyecto.
 
 Los dos bloques son lo suficientemente importantes y están separados entre sí lo suficiente como para que puedan ser abordados por separado y no interfieran entre sí.
 
@@ -189,7 +189,7 @@ Sin embargo, pensarlo de este modo ayuda a:
 
 \subsection{Creación del modelo}\label{sec:diseno-modelo}
 
-El primer bloque, \textbf{Creación del modelo}, se centra en la creación de un modelo capaz de clasificar audios según emociones humanas.
+El primer bloque, recogido en el \autoref{chp-02}, se centra en la creación de un modelo capaz de clasificar audios según emociones humanas.
 El objetivo de este bloque será crear un modelo que pueda clasificar los audios con cierta precisión entre un conjunto de emociones previamente definidas.
 
 Algunos aspectos que se tendrán en cuenta en este bloque son:
@@ -199,7 +199,7 @@ Algunos aspectos que se tendrán en cuenta en este bloque son:
     \item Elección de la arquitectura del modelo
     \item Entrenamiento del modelo
     \item Evaluación del modelo
-    \item Exportación del modelo
+    \item Alojamiento del modelo
 \end{itemize}
 
 % add empty line
@@ -208,7 +208,7 @@ Algunos aspectos que se tendrán en cuenta en este bloque son:
 
 \subsection{Despliegue del modelo}\label{sec:diseno-despliegue}
 
-El segundo bloque, \textbf{Despliegue del modelo}, se centra en la creación de una aplicación que permita utilizar el modelo creado en el bloque anterior.
+El segundo bloque, detallado en el \autoref{chp-03}, se centra en la creación de una aplicación que permita utilizar el modelo creado en el bloque anterior.
 El objetivo de este bloque será utilizar el modelo de un modo determinado, ponerlo a disposición del usuario final, y que pueda ser desplegado en cualquier entorno.
 
 Algunos aspectos relevantes en cuanto a este bloque son:
@@ -217,7 +217,7 @@ Algunos aspectos relevantes en cuanto a este bloque son:
     \item Diseño de la interfaz
     \item Despliegue de la aplicación
     \item Hosting de la aplicación
-    \item Pruebas de funcionamiento
+    \item Acceso a la aplicación
 \end{itemize}
 
 

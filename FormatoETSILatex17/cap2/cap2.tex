@@ -1,8 +1,149 @@
 \chapter{Diseño del modelo}\label{chp-02}
 \epigraph{I don't know where I'm going from here, but I promise it won't be boring.}{David Bowie}
 
-\section{Introducción}
-Aquí voy a explicar algo muy bonito y divertido  adsf
+Este capítulo se centra en explicar el procedimiento seguido para la creación del modelo clasificador de audios.
+
+Es importante destacar la gran cantidad de documentación existente además del gran apoyo que la comunidad ofrece en este campo en concreto.
+Puede parecer un problema difícil de resolver, pero gracias a toda la información disponible y a la gran cantidad de herramientas que existen, ha sido posible crear un modelo que ofrece una funcionalidad básica.
+
+En concreto, se destacan los sitios web \href{https://www.kaggle.com/}{Kaggle} y \href{https://huggingface.co/}{Hugging Face} como las principales fuentes de información y herramientas utilizadas.
+Son dos plataformas directamente enfocadas al entrenamiento de modelos de \textit{Machine Learning} y \textit{Deep Learning}.
+Ambas fomentan la colaboración entre usuarios y ofrecen una gran cantidad de recursos para la creación de modelos.
+
+En concreto, se ha utilizado un dataset de Kaggle para el entrenamiento del modelo y librerías específicos de Hugging Face para la creación del modelo en Python.
+
+
+\section{Base de datos}\label{seccion:base-de-datos}
+Como ha sido comentado en el \autoref{chp-01}, un problema que se enfrentó en el primer acercamiento a la problemática que este proyecto pretende resolver fue la falta de una base de datos que contuviera audios con las emociones específicas que se querían clasificar.
+Al no haber impuesto restricciones, se ha optado por elegir una base de datos ya existente.
+
+La búsqueda de base de datos se ha realizado en Kaggle.
+La popularidad de esta plafaforma no es vano, ya que cuenta con una gran cantidad de datasets de todo tipo.
+En concreto, se han realizado búsquedas de datasets relacionados con audios calsificados por emociones.
+
+En Kaggle existen datasets oficiales creados por grandes organizaciones, y otros creados por usuarios de la plataforma.
+La mayoría de los datasets son de libre acceso, por lo que tenemos la posibilidad de descargarlos y utilizarlos para nuestros propios proyectos.
+
+En este caso, se ha optado por utilizar un dataset creado por un usario accesible en el siguiente enlace: \url{https://www.kaggle.com/datasets/uldisvalainis/audio-emotions}.
+Este dataset es una recopilación de varios datasets similares creados por organizaciones diferentes, que contienen audios grabados por actores interpretando diferentes emociones.
+
+La elección de este dataset se ha realizado por la gran cantidad de audios que contiene, y por tener un número variado de emociones.
+Estas emociones son: \textit{neutral}, \textit{happy}, \textit{sad}, \textit{angry}, \textit{fearful}, \textit{disgust}, \textit{surprised}.
+
+""" insertar imagen de los audios del dataset """
+
+El dataset contiene un total de 12.798 audios, con una duración de 3 segundos cada uno.
+
+Podemos observar un claro desbalance en la clase \textit{surprised}, que contiene un número muy inferior de audios que el resto de clases.
+Como no existen restricciones en cuanto a las clases que se quieren clasificar, se ha optado por eliminar esta clase del dataset, y quedarnos con las 6 clases restantes.
+De este modo se consigue un dataset más equilibrado, lo cual influirá positivamente en el entrenamiento del modelo.
+
+
+\section{Modelo}\label{seccion:modelo}
+Una vez se ha seleccionado el dataset, se ha procedido a la creación del modelo.
+
+\subsection{Estado del arte}\label{seccion:estado-del-arte}
+Para poder enfocar un problema del que no se tiene conocimiento previo, es necesario realizar una investigación previa sobre el estado del arte, primero, para determinar si es posible resolver el problema, y segundo, para conocer las herramientas que existen para resolverlo.
+En este caso, se ha realizado una investigación sobre las herramientas que existen para la clasificación de audios.
+
+La solución se supone en principio estar ubicada en el campo de la Inteligencia Artificial, y más concretamente en el campo del \textit{Deep Learning} debido a la dificultad de encontrar patrones en los audios.
+Es importante saber clasificar nuestro problema dentro de un campo de la Inteligencia Artificial, ya que existen diferentes herramientas para resolver problemas de diferentes campos.
+
+Trabajos relacionados muestran un gran desempeño de la arquitectura conocida como \textit{Transformers} en la clasificación de audios, ya que son capaces de capturar patrones en los audios que otras arquitecturas no son capaces de capturar.
+Estos \textit{Transformers} son una arquitectura de \textit{Deep Learning} que se ha popularizado en los últimos años, y que ha demostrado un gran desempeño en la clasificación de textos y audios.
+Por eso, son muy utilizados para tareas relacionadas con el campo del \textit{Natural Language Processing} (NLP), el campo del \textit{Speech Recognition} (SR), el campo del \textit{Speech Synthesis} (SS), y el campo del \textit{Emotion Recognition} (ER).
+
+Desde que en 2017 salió a la luz el artículo \textit{Attention is all you need} \cite{vaswani2017attention}, en el que se presentaba la arquitectura \textit{Transformer}, se han realizado numerosos trabajos """trabajo audios griegos""" que han demostrado el gran desempeño de esta arquitectura en la clasificación de textos y audios.
+Sin embargo, su uso estaba reservado a grandes empresas con grandes recursos, ya que el entrenamiento de estos modelos requiere de una gran cantidad de datos y de una gran capacidad de cómputo.
+
+Además de esto, la gran complejidad que presentaban estos hacía que su uso fuera muy complicado para usuarios con pocos conocimientos en el campo del \textit{Deep Learning}.
+La aparición de librerías de un mayor nivel de abstracción ha acercado el uso de estas arquitecturas a usuarios con menos conocimientos.
+Una de las librerías más utilizadas es \textit{Transformers}, desarrollada y mantenida por \textit{Hugging Face}, que ofrece una gran cantidad de herramientas para la carga de modelos pre-entrenados, realizar ajustes finos de estos modelos, procesar datos de entrada, etc.
+Está pensado para poder ser usado por todo tipo de usuarios, desde usarios con pocos conocimientos que quieran usar modelos pre-entrenados, usuarios con conocimientos avanzados que quieran realizar un ajuste fino de los modelos pre-entrenados, hasta investigadores que quieran crear sus propios modelos.
+
+
+\subsection{Elección del modelo}\label{seccion:eleccion-del-modelo}
+Una vez se ha realizado una investigación sobre el estado del arte, se ha decidido utilizar un modelo pre-entrenado de los disponibles en la librería \textit{Transformers}.
+Esta elección no es sencilla debido a la gran cantidad de opciones disponibles y la aparente similitud entre ellas.
+Para poder elegir el modelo más adecuado, se ha realizado una búsqueda sobre cuáles son los modelos más utilizados en la clasificación de audios.
+
+Tras investigar sobre los modelos más utilizados, se ha decidido utilizar el modelo \textit{Wav2Vec2} \cite{baevski2020wav2vec}.
+Este modelo ha sido creado por \textit{Facebook AI} específicamente para ser utilizado en tareas de los campos de \textit{Speech Recognition} (SR) y \textit{Audio Classification}.
+Además, es un modelo popular entre usuarios """enlace a proyecto clasificación de auidos""" de la librería \textit{Transformers}, incluso cuenta con ejemplos de uso en la documentación oficial de la librería.
+
+Por estos motivos, se ha considerado más que apropiado para la resolución del problema que se plantea en este proyecto.
+
+También ha sido empleado otro modelo bastante más grande, el modelo \textit{XLSR-Wav2Vec2} \cite{conneau2020unsupervised}.
+Es una mejora del modelo "Wav2Vec2", que ha sido entrenado con una gran cantidad de datos de diferentes idiomas.
+Este modelo ha sido utilizado para la clasificación de audios en diferentes idiomas, y se ha considerado interesante probarlo para la clasificación de audios en español.
+La elección de este modelo se ha realizado con la finalidad de mejorar los resultados obtenidos con el modelo "Wav2Vec2", ya que es un modelo más versátil para la clasificación de audios en diferentes idiomas.
+Sin embargo, al ser más complejo requeriría una mayor capacidad de cómputo para su entrenamiento, además de un mejor ajuste de los parámetros.
+Al no obtener mejores resultados que el modelo "Wav2Vec2", siendo más exigente computacionalmente, se ha decidido no utilizarlo en la solución final.
+
+
+\section{Entrenamiento}\label{seccion:entrenamiento}
+Una vez se ha seleccionado el modelo, se ha procedido a realizar el entrenamiento del mismo.
+
+\subsection{Preparación del entrenamiento}\label{seccion:preparacion-del-entrenamiento}
+Antes de comenzar el entrenamiento del modelo, es necesario realizar una serie de preparaciones previas.
+La siguiente elección consiste en decidir qué librería de bajo nivel se va a utilizar para el entrenamiento del modelo.
+\textit{Transformers} ofrece una documentación muy extensa con multitud de ejemplos en muhos campos, y dentro de estos ejemplos, podemos elegir entre \textit{PyTorch} y \textit{TensorFlow}, dos librerías de bajo nivel muy populares en el campo del \textit{Deep Learning}.
+
+En principio no debe existir diferencia entre utilizar una u otra, ya que ambas librerías ofrecen las mismas funcionalidades.
+Dependerá de la experiencia del usuario con una u otra, o de la preferencia del usuario.
+En este caso, se ha optado por utilizar \textit{PyTorch}, ya que es una librería con la que se tiene algo más de experiencia, y además, es la librería que se utiliza en la documentación oficial de \textit{Transformers}.
+Para un caso de uso en el que se requiera una mayor optimización de la solución, convendría estudiar más en profundidad las diferencias entre ambas librerías, y elegir la que mejor se adapte a las necesidades del usuario.
+
+Una vez se ha elegido la librería de bajo nivel, se ha procedido a la preparación de los datos de entrada.
+Los datos son en primer lugar descargos en una carpeta local.
+Esta tarea es sencilla ya que \textit{Kaggle} permite cargar automáticamente los datos desde un script de Python.
+
+Los datos no pueden ser introducidos directamente en la red neuronal, ya que esta espera recibir los datos en un formato específico.
+Para esto, el modelo ofrece una herramienta que se encarga de procesar los datos de entrada y convertirlos en el formato que espera recibir la red neuronal.
+
+Debemos definir ahora la métrica que vamos a utilizar para evaluar el desempeño del modelo.
+De este modo podemos calcular lo bien o mal que se comporta el modelo durante el entrenamiento, y podemos comparar diferentes modelos para elegir el que mejor se ajuste a nuestras necesidades.
+
+En este caso, se ha optado por utilizar la métrica \textit{accuracy}, que es la métrica más utilizada en la clasificación de audios.
+Para esta tarea, de nuevo, existe una librería de \textit{Hugging Face} que facilita la integración de esta métrica en el entrenamiento del modelo.
+
+En este punto, podemos comenzar el entrenamiento del modelo.
+La librería \textit{Transformers} permite guardar checkpoints del modelo durante el entrenamiento, de modo que podemos parar el entrenamiento en cualquier momento y continuar desde el último checkpoint guardado.
+Una vez completado el entrenamiento, podemos subir la mejor versión del modelo a la plataforma \textit{Hugging Face} para poder utilizarlo en producción.
+De este modo nos aseguramos de que el modelo va a estar disponible en cualquier momento, y podemos compartirlo con otros usuarios, además de las ventajas que ofrecen los sistemas de control de versiones.
+
+Las posibilidades de la librería \textit{Transformers} son muy amplias, y permiten realizar ajustes finos del modelo, como por ejemplo, la posibilidad de utilizar diferentes optimizadores, diferentes funciones de pérdida, diferentes métricas, etc.
+Esto permite que el usuario pueda ajustar el modelo a sus necesidades, y pueda realizar un entrenamiento más eficiente.
+
+En este caso, se ha optado por utilizar las opciones por defecto, e intentar mejorar resultados modificando algunos parámetros como el ratio de aprendizaje o el número de épocas de entrenamiento.
+Al ser un procesamiento muy costoso, no se ha podido profundizar mucho en este aspecto, pero se ha conseguido un modelo que ofrece una funcionalidad básica.
+
+El modelo final puede ser encontrado en la plataforma \textit{Hugging Face} en el siguiente enlace: \url{https://huggingface.co/antonjaragon/emotions_6_classes_small}.
+Este modelo ha sido entrenado con el dataset descrito en la \autoref{seccion:base-de-datos}, y ofrece una funcionalidad básica de clasificación de audios en 6 clases diferentes.
+A través del enlace podemos acceder a la documentación del modelo, donde se muestran los resultados, y podemos probar el modelo con audios de prueba.
+
+Por otro lado, aunque no ha sido utilizado en este trabajo, también existe el modelo entrenado con el modelo \textit{XLSR-Wav2Vec2}, que puede ser encontrado en el siguiente enlace: \url{https://huggingface.co/antonjaragon/emotions_6_classes}.
+
+
+\section{Saturn Cloud}\label{seccion:saturn-cloud}
+Para el entrenamiento del modelo, se ha hecho uso de los recursos gratuitos que ofrece la plataforma \textit{Saturn Cloud}.
+
+El proceso de entrenamiento de un modelo de \textit{Deep Learning} es muy costoso computacionalmente, y requiere de una gran capacidad de cómputo.
+Las primeras pruebas se realizaron en un portátil personal con una tarjeta gráfica integrada.
+
+Realizar entrenamientos pesados de varias horas de duración no es viable para un ordenador personal, ya que el desgaste sería muy elevado.
+Por ello, se han buscado alternativas a probar en este proyecto en concreto.
+Utilizar servicios de terceros para el entrenamiento de modelos puede no ser viable en muchos casos, debido a que necesitamos cargar los datos en la nube.
+Esto puede ser un problema si los datos son sensibles, ya que no podemos garantizar la seguridad de los mismos.
+Sin embargo, al estar utilizando un dataset público, no es un problema cargar los datos en el servidor de entrenamiento.
+
+Además, el coste de utilizar estos servicios puede ser muy elevado, ya que el entrenamiento de un modelo puede durar varias horas, y el coste se calcula en función del tiempo de uso de los recursos.
+Esta solución no sería la mejor para muchos escenarios, pero en este caso, se ha optado por utilizar los recursos gratuitos que ofrece la plataforma \textit{Saturn Cloud}.
+La elección se debe a que es una de las pocas plataformas que ofrecen una instancia con GPU en el segmento gratuito.
+Para nuevos usuarios, contamos con 150 horas de uso de una instancia con GPU, que es más que suficiente para realizar varios entrenamiento del modelo.
+
+
+
 
 
 \endinput

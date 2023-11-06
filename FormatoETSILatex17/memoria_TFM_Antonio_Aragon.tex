@@ -169,13 +169,13 @@ pdfkeywords={Latex, edición, formato de texto}
 %
 % \include{introduccion/introduccion}%Guia uso
 %
-\include{estructura/estructura}
-%
-\include{CapituloLibroETSI/CapituloLibroETSI} 
-%
-\include{CapituloProblemasLibroETSI/CapituloProblemasETSI} 
+% \include{estructura/estructura}
+% %
+% \include{CapituloLibroETSI/CapituloLibroETSI} 
+% %
+% \include{CapituloProblemasLibroETSI/CapituloProblemasETSI} 
 
-\include{CapituloEstilo/estilolibroetsi}
+% \include{CapituloEstilo/estilolibroetsi}
 % 
 %:Empezamos con los apéndices, que irían en uno o más ficheros. Es necesario incluir estos ficheros entre el entorno \begin{appendices}....\end{appendices} debido a que se ha deseado utilizar un formato diferente para el título de los apéndices, incluyendo la palabra apéndice, para la numeración de los apéndices, alfabético, y para las cabeceras de las páginas.
 
@@ -201,18 +201,18 @@ pdfkeywords={Latex, edición, formato de texto}
 \listoffigures
 
 %:Indice de tablas, coméntese las siguientes líneas si no se desea
-\cleardoublepage
-\phantomsection
-\addcontentsline{toc}{listasb}{\listtablename}
-\pagestyle{especial}
-\listoftables
+% \cleardoublepage
+% \phantomsection
+% \addcontentsline{toc}{listasb}{\listtablename}
+% \pagestyle{especial}
+% \listoftables
 
 %:Indice de Programas
-\cleardoublepage
-\phantomsection
-\addcontentsline{toc}{listasb}{\lstlistlistingname}
-\pagestyle{especial}
-\lstlistoflistings
+% \cleardoublepage
+% \phantomsection
+% \addcontentsline{toc}{listasb}{\lstlistlistingname}
+% \pagestyle{especial}
+% \lstlistoflistings
 
 %:Bibliografía con biblatex y biber
 \cleardoublepage
@@ -228,18 +228,18 @@ pdfkeywords={Latex, edición, formato de texto}
 \bibliography{bibliografiaLibroETSI}
 
 %:Índice alfabético de palabras
-\cleardoublepage
-\phantomsection
-\addcontentsline{toc}{listasb}{\indexname}
-\chaptermark{\indexname}
-\printindex
+% \cleardoublepage
+% \phantomsection
+% \addcontentsline{toc}{listasb}{\indexname}
+% \chaptermark{\indexname}
+% \printindex
 
 
 %:Acrónimos
-\cleardoublepage
-\phantomsection
-\addcontentsline{toc}{listasb}{\glossaryname}
-\chaptermark{\glossaryname}
-\printglossaries
+% \cleardoublepage
+% \phantomsection
+% \addcontentsline{toc}{listasb}{\glossaryname}
+% \chaptermark{\glossaryname}
+% \printglossaries
 
 \end{document}
