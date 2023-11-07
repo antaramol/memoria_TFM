@@ -1,7 +1,6 @@
 \chapter{Diseño del modelo}\label{chp-02}
 \epigraph{I don't know where I'm going from here, but I promise it won't be boring.}{David Bowie}
-
-Este capítulo se centra en explicar el procedimiento seguido para la creación del modelo clasificador de audios.
+\lettrine[lraise=-0.1, lines=2, loversize=0.2]{E}{ste} capítulo se centra en explicar el procedimiento seguido para la creación del modelo clasificador de audios.
 
 Es importante destacar la gran cantidad de documentación existente además del gran apoyo que la comunidad ofrece en este campo en concreto.
 Puede parecer un problema difícil de resolver, pero gracias a toda la información disponible y a la gran cantidad de herramientas que existen, ha sido posible crear un modelo capaz de ofrecer una funcionalidad básica.
@@ -148,6 +147,11 @@ El preprocesado de los datos, se basa en los siguientes pasos:
 \end{enumerate}
 
 \begin{lstlisting}[language=Python, caption=Preprocesado del dataset, label={code:download-data}]
+
+import glob
+import pandas as pd
+import datasets
+
 # download dataset
 import opendatasets as od
 od.download("https://www.kaggle.com/datasets/uldisvalainis/audio-emotions")
@@ -174,7 +178,7 @@ for i, label in enumerate(labels):
 
 #feature extractor
 from transformers import AutoFeatureExtractor
-model='facebook/wav2vec2'
+model='facebook/wav2vec2-base-960h'
 feature_extractor = AutoFeatureExtractor.from_pretrained(model)
 
 #process the data such as fix sample rate
