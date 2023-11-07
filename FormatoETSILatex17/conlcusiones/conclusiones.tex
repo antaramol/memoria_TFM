@@ -29,6 +29,73 @@ Algunos requisitos como los tiempos de respuesta del sistema dependen en gran me
 Además, pueden ser variables dependiendo de la carga de trabajo del servidor, de la calidad de la red, etc.
 Por lo tanto, se necesitaría un estudio más profundo para medirlos correctamente.
 
-\section{Líneas futuras}
 
 \section{Lecciones aprendidas}
+El aprendizaje adquirido durante el desarrollo del proyecto ha sido muy valioso.
+Más allá de las cuestiones puramente técnicas, se han adquirido conocimientos sobre cómo enfocar un proyecto de estas características.
+
+El hecho de enfocar el proyecto como un problema real, obliga a imaginarse qué tipo de problemas pueden surgir y qué elección es la más adecuada para resolverlos.
+Aunque muchos requisitos han sido obviados, sobre todo los relacionados con la seguridad, entender las implicaciones que tienen las decisiones tomadas es muy enriquecedor.
+
+Quizás el mayor aprendizaje ha sido el relacionado con cómo los obstáculos han sido sorteados.
+Es inevitable que surjan problemas durante el desarrollo de un proyecto, y muchos de ellos parecen bloquear el avance.
+Sin embargo, es en estos puntos cuando hay que entender bien el problema para poder encontrar una solución, o un camino alternativo.
+
+En relación con el previo acercamiento a esta problemática, muchos de estos obstáculos que antes bloqueaban el proyecto por completo, han podido ahora ser resueltos o evitados.
+En esta línea, es importante entender que muchas veces la solución no es un camino recto, sino que a veces hay que tomar desvíos para poder llegar al destino.
+
+
+\section{Líneas futuras}
+
+Esta sección pretende servir de autocrítica y de guía para futuros proyectos que quieran continuar con el trabajo realizado.
+Se van a enumerar los puntos que se consideran más importantes para mejorar el proyecto.
+
+\subsection{Añadir funcionalidad al sistema}
+% Explicar que solo hace una cosa
+Un punto particularmente débil de la implementación final del sistema es que tiene una funcionalidad muy limitada.
+El sistema es capaz de clasificar audios de entrada que se suponen válidos, pero nada más.
+
+Sería interesante añadir funcionalidades que permitan al usuario interactuar con el sistema de forma más natural.
+Por ejemplo, grabar de forma continua y detectar emociones dependientes del tiempo.
+Esta nueva funcionalidad no se consigue simplemente grabando de forma continua y haciendo predicciones, sería conveniente añadir un bloque detector de actividad vocal.
+
+Otra posible mejora podría ser un sistema capaz de detetar palabras clave. 
+El desarrollo de este tipo de sistemas es muy similar al de los clasificadores de emociones, pero se necesitaría un dataset de grabaciones de la palabra clave en cuestión.
+Acompañado de un estudio de las palabras clave que pudieran resultar de interés, este nuevo sitema podría ser de gran utilidad al clasificador de emociones.
+
+Otra línea de mejora podría ser identificar el hablante.
+Hasta el momento hemos supuesto que hay un solo hablante, pero en caso de que hubiera más de uno, sería interesante identificarlos para poder obtener información temporal de cada uno de ellos.
+
+
+\subsection{Resultados del modelo}
+En caso de presentar este proyecto como un producto o una publicación, sería necesario mejorar el apartado de resultados.
+Debido al tiempo limitado, no se ha podido indagar en detallar métricas de rendimiento, hacer comparación de clases, etc.
+
+Más allá de la métrica de precisión, sería interesante mostrar la matriz de confusión del modelo, así como la precisión por clase.
+
+""""esto quizas lo puedo hacer hoy"""
+
+\subsection{Verificación de funcionamiento}
+La verificación del funcionamiento de un sistema puede llegar a consumir la mayor parte del tiempo de desarrollo.
+Este tiempo se incrementa especialmente para sistemas cuya disponibilidad es crítica, como pueden ser proyectos relacionados con la salud.
+
+Asegurar que el sistema no va a fallar es muy complejo, y requiere de un estudio profundo de los posibles casos de uso.
+En este proyecto, se ha realizado una verificación básica del funcionamiento del sistema, pero no se ha profundizado en ella.
+
+
+\subsection{Seguridad}
+Como hemos comentado más de una vez en este documento, entendemos que la seguridad es un aspecto muy importante en cualquier sistema, pero ha sido pasada por alto en gran medida en este proyecto.
+En un proyecto real, existiría un equipo de seguridad que se encargaría de auditar el sistema y de asegurar que no existen vulnerabilidades.
+
+En caso de trabajar con datos reales, sería conveniente establecer unos requisitos de seguridad más estrictos, y realizar un estudio de las posibles vulnerabilidades del sistema.
+Cuanto más sensible sea la información, más susceptible será de ser atacada.
+
+\subsection{Optimización de la solución}
+Cambiar la forma de implementar el sistema de modo que se optimicen los tiempos de carga y de respuesta, el espacio de almacenamiento, etc. abriría las puertas a nuevas posibilidades.
+Por ejemplo, reducir el tiempo que tarda el sistema desde que se graba el audio hasta que podemos grabar uno nuevo, permitiría realizar predicciones en tiempo real.
+
+
+
+
+
+\endinput

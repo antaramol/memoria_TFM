@@ -203,6 +203,16 @@ En la actualidad, \textit{Nginx} ofrece más funcionalidades, pero para este cas
 La mayor ventaja que nos ha brindado \textit{Traefik} es la facilidad de generar certificados SSL para la aplicación, lo que nos permite utilizar HTTPS.
 Esto es importante, ya que si no se utiliza HTTPS, los navegadores web no permiten acceder al micrófono del dispositivo, lo que hace imposible la grabación de audios.
 
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{cap3/images/arquitectura.png}
+    \caption{Esquema completo del sistema}
+    \label{fig:traefik}
+    
+\end{figure}
+
+
+
 No es una tarea difícil de realizar correctamente para un desarrollador experimentado mediante un servidor web como \textit{Nginx}, pero es mucho más sencillo de realizar con \textit{Traefik}, y además, al contar con poca experiencia en este campo, nos ha permitido solventar este problema de forma rápida y sencilla.
 Además, \textit{Traefik} aún está dando sus primeros pasos, y está ganando popularidad entre desarrolladores, por lo que quizás en un futuro sea una alternativa a \textit{Nginx} también en entornos reales de producción.
 
@@ -343,6 +353,13 @@ services:
 
 \end{lstlisting}
 
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{cap3/images/arquitectura-docker.png}
+    \caption{Esquema completo del sistema con Docker Compose}
+    \label{fig:docker-compose}
+\end{figure}
 
 \section{Despliegue}
 Una vez que la aplicación está lista para ser desplegada, es necesario elegir un entorno de producción.
