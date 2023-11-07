@@ -148,47 +148,47 @@ El preprocesado de los datos, se basa en los siguientes pasos:
 \end{enumerate}
 
 \begin{lstlisting}[language=Python, caption=Preprocesado del dataset, label={code:download-data}]
-    # download dataset
-    import opendatasets as od
-    od.download("https://www.kaggle.com/datasets/uldisvalainis/audio-emotions")
+# download dataset
+import opendatasets as od
+od.download("https://www.kaggle.com/datasets/uldisvalainis/audio-emotions")
 
-    df=pd.DataFrame(glob('audio-emotions/Emotions/*/*.wav'),columns=['paths'])
+df=pd.DataFrame(glob('audio-emotions/Emotions/*/*.wav'),columns=['paths'])
 
-    df['labels']=df.paths.apply(lambda x:x.split('/')[-2])
+df['labels']=df.paths.apply(lambda x:x.split('/')[-2])
 
-    # drop rows where label is 'Surprised'
-    df=df[df.labels!='Suprised']
-    
-
-    hf_data=datasets.Dataset.from_pandas(df)
-    hf_data=hf_data.class_encode_column("labels")#convert label to HF label class
-
-    hf_data=hf_data.train_test_split(train_size=0.8,seed=0)
-
-    # Create a dictionary that maps a label name to an integer and vice versa. The mapping will help the model recover the label name from the label number:
-    labels = hf_data['train'].features['labels'].names
-    label2id, id2label = dict(), dict()
-    for i, label in enumerate(labels):
-        label2id[label] = str(i)
-        id2label[str(i)] = label
-
-    #feature extractor
-    from transformers import AutoFeatureExtractor
-    model='facebook/wav2vec2'
-    feature_extractor = AutoFeatureExtractor.from_pretrained(model)
-
-    #process the data such as fix sample rate
-    hf_data = hf_data.cast_column("paths", datasets.Audio(sampling_rate=16_000))
-    
-    def preprocess_function(examples):
-        audio_arrays = [x["array"] for x in examples["paths"]]
-        inputs = feature_extractor(
-            audio_arrays, sampling_rate=feature_extractor.sampling_rate, max_length=16000*2, truncation=True
-        )
-        return inputs
+# drop rows where label is 'Surprised'
+df=df[df.labels!='Suprised']
 
 
-    encoded_dataset = hf_data.map(preprocess_function, remove_columns=["paths"], batched=True)
+hf_data=datasets.Dataset.from_pandas(df)
+hf_data=hf_data.class_encode_column("labels")#convert label to HF label class
+
+hf_data=hf_data.train_test_split(train_size=0.8,seed=0)
+
+# Create a dictionary that maps a label name to an integer and vice versa. The mapping will help the model recover the label name from the label number:
+labels = hf_data['train'].features['labels'].names
+label2id, id2label = dict(), dict()
+for i, label in enumerate(labels):
+    label2id[label] = str(i)
+    id2label[str(i)] = label
+
+#feature extractor
+from transformers import AutoFeatureExtractor
+model='facebook/wav2vec2'
+feature_extractor = AutoFeatureExtractor.from_pretrained(model)
+
+#process the data such as fix sample rate
+hf_data = hf_data.cast_column("paths", datasets.Audio(sampling_rate=16_000))
+
+def preprocess_function(examples):
+    audio_arrays = [x["array"] for x in examples["paths"]]
+    inputs = feature_extractor(
+        audio_arrays, sampling_rate=feature_extractor.sampling_rate, max_length=16000*2, truncation=True
+    )
+    return inputs
+
+
+encoded_dataset = hf_data.map(preprocess_function, remove_columns=["paths"], batched=True)
 
 
 \end{lstlisting}
@@ -221,49 +221,49 @@ En el \textbf{\href{https://huggingface.co/antonjaragon/emotions_6_classes_small
 
 \begin{lstlisting}[language=Python, caption=Entrenamiento del modelo, label={code:train-model}]
 
-    import evaluate
-    accuracy = evaluate.load("accuracy")
+import evaluate
+accuracy = evaluate.load("accuracy")
 
-    def compute_metrics(eval_preds):
-        # metric = datasets.load_metric("accuracy")
-        logits, labels = eval_preds
-        predictions = np.argmax(logits, axis=1)
-        return accuracy.compute(predictions=predictions, references=labels)
+def compute_metrics(eval_preds):
+    # metric = datasets.load_metric("accuracy")
+    logits, labels = eval_preds
+    predictions = np.argmax(logits, axis=1)
+    return accuracy.compute(predictions=predictions, references=labels)
 
-    from transformers import AutoModelForAudioClassification, TrainingArguments, Trainer
+from transformers import AutoModelForAudioClassification, TrainingArguments, Trainer
 
-    num_labels = len(id2label)
-    model = AutoModelForAudioClassification.from_pretrained(model, num_labels=num_labels, label2id=label2id, id2label=id2label)
+num_labels = len(id2label)
+model = AutoModelForAudioClassification.from_pretrained(model, num_labels=num_labels, label2id=label2id, id2label=id2label)
 
-    training_args = TrainingArguments(
-        output_dir="./emotions",
-        evaluation_strategy="epoch",
-        save_strategy="epoch",
-        fp16=True,
-        learning_rate=3e-5,
-        per_device_train_batch_size=32,
-        gradient_accumulation_steps=4,
-        per_device_eval_batch_size=32,
-        num_train_epochs=10,
-        warmup_ratio=0.1,
-        logging_steps=10,
-        load_best_model_at_end=True,
-        metric_for_best_model="accuracy",
-        push_to_hub=True,
+training_args = TrainingArguments(
+    output_dir="./emotions",
+    evaluation_strategy="epoch",
+    save_strategy="epoch",
+    fp16=True,
+    learning_rate=3e-5,
+    per_device_train_batch_size=32,
+    gradient_accumulation_steps=4,
+    per_device_eval_batch_size=32,
+    num_train_epochs=10,
+    warmup_ratio=0.1,
+    logging_steps=10,
+    load_best_model_at_end=True,
+    metric_for_best_model="accuracy",
+    push_to_hub=True,
 
-    )
+)
 
-    trainer = Trainer(
-        model=model,
-        args=training_args,
-        train_dataset=encoded_dataset['train'],
-        eval_dataset=encoded_dataset["test"],
-        tokenizer=feature_extractor,
-        compute_metrics =compute_metrics,
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=encoded_dataset['train'],
+    eval_dataset=encoded_dataset["test"],
+    tokenizer=feature_extractor,
+    compute_metrics =compute_metrics,
 
-    )
+)
 
-    trainer.train()
+trainer.train()
 
 \end{lstlisting}
 
