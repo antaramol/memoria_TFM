@@ -33,7 +33,7 @@ Una vez obtenido el resultado, puede volver a grabar otro mensaje.
 
 La aplicación es accesible desde cualquier dispositivo que tenga un navegador web a través de la dirección \url{https://www.classifier-web.com/}.
 
-\begin{figure}[H]
+\begin{figure}[htpb]
     \centering
     \includegraphics[width=0.8\textwidth]{cap3/images/interfaz-web.png}
     \caption{Resultado mostrado en la interfaz tras realizar una predicción}
@@ -207,7 +207,7 @@ No es una tarea difícil de realizar correctamente para un desarrollador experim
 Además, \textit{Traefik} aún está dando sus primeros pasos, y está ganando popularidad entre desarrolladores, por lo que quizás en un futuro sea una alternativa a \textit{Nginx} también en entornos reales de producción.
 
 % """ insertar foto de \url{https://monitor.classifier-web.com} indicando admin:admin"""
-\begin{figure}[H]
+\begin{figure}[htpb]
     \centering
     \includegraphics[width=0.8\textwidth]{cap3/images/monitor-dashboard.png}
     \caption{Panel de control de \textit{Traefik}, accesible a través de la dirección \url{https://monitor.classifier-web.com} con contraseña admin:admin}
@@ -403,7 +403,7 @@ Es muy sencillo desplegar una instancia de un servidor virtual, a la que podemos
 Si a esto le sumamaos la facilidad que nos ofrece Docker Compose para desplegar la aplicación, junto con herramientas de edición como VSCode que nos permiten conectarnos y 
 editar los ficheros de la aplicación de forma remota, el resultado es muy satisfactorio.
 
-\begin{figure}[H]
+\begin{figure}[htpb]
     \centering
     \includegraphics[width=0.8\textwidth]{cap3/images/contabo-instance.png}
     \caption{Instancias activas en Contabo}
@@ -414,7 +414,7 @@ Contabo además nos ofrece muchas opciones que nos ayudan a perfilar el resultad
 En nuestro caso, se ha utilizado el área de manejo de DNS para configurar el dominio de la aplicación, de modo que podemos otorgarle un nombre más amigable a la aplicación.
 Contabo permite crear registros DNS de forma sencilla, y además ofrece un servicio de DNS dinámico, que permite asignar un nombre de dominio a una IP dinámica, que es la que nos ofrece el servidor virtual.
 
-\begin{figure}[H]
+\begin{figure}[htpb]
     \centering
     \includegraphics[width=0.8\textwidth]{cap3/images/contabo-dns.png}
     \caption{Configuración de DNS en Contabo}
