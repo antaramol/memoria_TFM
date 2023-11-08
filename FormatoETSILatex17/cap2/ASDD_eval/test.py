@@ -58,7 +58,9 @@ for label in labels:
     print(f'True positives: {true_positives}, False positives: {false_positives}, False negatives: {false_negatives}, True negatives: {true_negatives}')
     print(f'Label: {label}, F1 score: {f1}, Precision: {precision}, Recall: {recall}')
 
-
+print('F1 score: %.3f' % f1_score(y_true, y_pred, average='macro'))
+print('Precision: %.3f' % precision_score(y_true, y_pred, average='macro'))
+print('Recall: %.3f' % recall_score(y_true, y_pred, average='macro'))
 
 
 
@@ -68,8 +70,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import itertools
 
+# sort labels in reverse order
+labels.sort(reverse=True)
 mcm = multilabel_confusion_matrix(y_true, y_pred, labels=labels)
 print(mcm)
+
 
 cm = confusion_matrix(y_true, y_pred, labels=labels)
 print(cm)

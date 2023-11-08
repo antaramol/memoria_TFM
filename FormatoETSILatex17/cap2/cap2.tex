@@ -347,10 +347,10 @@ También fue la métrica utilizada para evaluar el desempeño del modelo durante
 Primero es necesario definir los términos \textit{True Positive}, \textit{True Negative}, \textit{False Positive} y \textit{False Negative}.
 Son los resultados de una predicción, y se definen de la siguiente manera:
 \begin{itemize}
-    \item \textbf{True Positive (TP)}: El modelo predice correctamente la clase positiva.
-    \item \textbf{True Negative (TN)}: El modelo predice correctamente la clase negativa.
-    \item \textbf{False Positive (FP)}: El modelo predice incorrectamente la clase positiva.
-    \item \textbf{False Negative (FN)}: El modelo predice incorrectamente la clase negativa.
+    \item \textbf{True Positives (TP)}: Casos en los que el modelo predice correctamente la clase positiva.
+    \item \textbf{True Negatives (TN)}: Casos en los que el modelo predice correctamente la clase negativa.
+    \item \textbf{False Positives (FP)}: Casos en los que el modelo predice incorrectamente la clase positiva.
+    \item \textbf{False Negatives (FN)}: Casos en los que el modelo predice incorrectamente la clase negativa.
 \end{itemize}
 
 El accuracy se calcula de la siguiente manera:
@@ -359,10 +359,11 @@ El accuracy se calcula de la siguiente manera:
     Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
 \end{equation}
 
+El modelo ha obtenido un accuracy del \textbf{57\%}.
 Es un resultado bajo, pero hay que ponerlo en contexto.
 
-El dataset fue sometido a un experimento en el que un grupo de personas clasificó los audios en las mismas clases que el modelo. \cite{AESDD_webpage}
-El resultado obtenido fue un accuracy de 0.74, no muy lejos del resultado obtenido con el modelo.
+Es importante comentar este hecho: el dataset fue sometido a un experimento en el que un grupo de personas clasificó los audios en las mismas clases que el modelo. \cite{AESDD_webpage}
+El resultado obtenido fue un accuracy del 74\%, lo cual podría indicar que es complicado clasificar correctamente los audios de este dataset, que quizás haya un problema con el etiquetado de los audios, o que quizás algunas clases no son separables.
 
 De todos modos, es muy mejorable, pero no tenemos información sobre cómo mejorarlo.
 Necesitamos más métricas.
@@ -427,6 +428,9 @@ De nuevo, el método utilizado para calcular la media es el mismo que en el caso
 % Label: fear, F1 score: 0.710, Precision: 0.598, Recall: 0.874
 % Label: happiness, F1 score: 0.561, Precision: 0.435, Recall: 0.790
 % Label: sadness, F1 score: 0.663, Precision: 0.763, Recall: 0.586
+% F1 score: 0.517
+% Precision: 0.690
+% Recall: 0.570
 
 \begin{table}[htpb]
     \centering
@@ -438,6 +442,7 @@ De nuevo, el método utilizado para calcular la media es el mismo que en el caso
         \textbf{fear} & 0.598 & 0.874 & 0.710 \\ \hline
         \textbf{happiness} & 0.435 & 0.790 & 0.561 \\ \hline
         \textbf{sadness} & 0.763 & 0.586 & 0.663 \\ \hline
+        \textbf{Average} & 0.690 & 0.570 & 0.517 \\ \hline
     \end{tabular}
     \caption{Métricas de evaluación del modelo}
     \label{tab:model-metrics}
