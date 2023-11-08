@@ -52,10 +52,10 @@ Además, contamos con cierta experiencia previa en el uso de \textit{Flask}, lo 
 
 
 \subsection{\textit{Flask}}
-\textit{Flask} es un microframework para \textit{Python} que permite crear aplicaciones web de forma sencilla.
+\textit{Flask} es un micro framework para \textit{Python} que permite crear aplicaciones web de forma sencilla.
 
 Está diseñado para ser extensible, por lo que es posible añadirle funcionalidades mediante extensiones, aunque en este caso no vamos a utilizar ninguna.
-Sin embargo, estas extensinoes de alto nivel nos abren las puertas a posibles líneas futuras, como lecturas de bases de datos, autenticación de usuarios, etc.
+Sin embargo, estas extensiones de alto nivel nos abren las puertas a posibles líneas futuras, como lecturas de bases de datos, autenticación de usuarios, etc.
 
 Utilizar \textit{Python} para la creación web no siempre es la solución idónea, ya que existen otros lenguajes de programación que están más orientados a la creación de aplicaciones web.
 Sin embargo, si no se tiene experiencia previa en estos lenguajes, o el objetivo es lanzar una aplicación web de forma rápida, \textit{Flask} es idóneo.
@@ -63,11 +63,11 @@ No estamos exentos de tener que crear plantillas en otros lenguajes propios de l
 
 
 \subsection{Estructura de la aplicación}
-Aunque \textit{Flask} ofrece muhas posibilidades, en este caso se ha optado por crear una aplicación web muy sencilla, que consta de dos partes principales.
+Aunque \textit{Flask} ofrece muchas posibilidades, en este caso se ha optado por crear una aplicación web muy sencilla, que consta de dos partes principales.
 
 Primero el modelo es cargado en memoria, y se crea una instancia de \textit{Flask}.
 El modelo es cargado en memoria para evitar tener que cargarlo cada vez que se realiza una predicción, lo que se traduciría en un aumento del tiempo de respuesta de la aplicación.
-Esto puede ralentizar sin embargo el arranque de la aplicaión, pero es una operación que se realiza una única vez.
+Esto puede ralentizar sin embargo el arranque de la aplicación, pero es una operación que se realiza una única vez.
 
 Posteriormente se crean las rutas de la aplicación, que son las direcciones a las que se puede acceder desde un navegador web.
 Contamos con la ruta principal, que es la que se utiliza para cargar la página principal de la aplicación, y la ruta de predicción, que es la que se utiliza para realizar las predicciones.
@@ -409,16 +409,15 @@ La atracción hacia Google Cloud Platform es que ofrece una gran cantidad de cr�
 El resultado es muy similar a AWS, esta vez se ha utilizado el servicio Compute Engine, que ofrece servidores virtuales en la nube.
 
 
-\subsection{VPS}
+\subsection{\textit{Contabo}}
 Una opción más sencilla y económica es utilizar un VPS (Virtual Private Server), que es un servidor virtual que se encuentra alojado en un servidor físico.
 Este tipo de servidores cuentan con una ventaja con respecto a los anteriores, y es que el precio es fijo, y no depende del uso que se haga del servidor.
 
-En concreto, se ha utilizado el servicio de VPS de Contabo, recomendado por un compañero de la universidad.
+En concreto, se ha utilizado el servicio de VPS de \textit{Contabo}, recomendado por un compañero de la universidad.
 Este servicio ofrece servidores virtuales a un precio muy asequible, y con una gran cantidad de recursos.
 
-Es muy sencillo desplegar una instancia de un servidor virtual, a la que podemos conectarnoso mediante SSH.
-Si a esto le sumamaos la facilidad que nos ofrece Docker Compose para desplegar la aplicación, junto con herramientas de edición como VSCode que nos permiten conectarnos y 
-editar los ficheros de la aplicación de forma remota, el resultado es muy satisfactorio.
+Es muy sencillo desplegar una instancia de un servidor virtual, a la que podemos conectarnos mediante SSH.
+Si a esto le sumamos la facilidad que nos ofrece Docker Compose para desplegar la aplicación, junto con herramientas de edición como VSCode que nos permiten conectarnos y editar los ficheros de la aplicación de forma remota, el resultado es muy satisfactorio.
 
 \begin{figure}[htpb]
     \centering
@@ -427,9 +426,9 @@ editar los ficheros de la aplicación de forma remota, el resultado es muy satis
     \label{fig:contabo}
 \end{figure}
 
-Contabo además nos ofrece muchas opciones que nos ayudan a perfilar el resultado final.
+\textit{Contabo} además nos ofrece muchas opciones que nos ayudan a perfilar el resultado final.
 En nuestro caso, se ha utilizado el área de manejo de DNS para configurar el dominio de la aplicación, de modo que podemos otorgarle un nombre más amigable a la aplicación.
-Contabo permite crear registros DNS de forma sencilla, y además ofrece un servicio de DNS dinámico, que permite asignar un nombre de dominio a una IP dinámica, que es la que nos ofrece el servidor virtual.
+\textit{Contabo} permite crear registros DNS de forma sencilla, y además ofrece un servicio de DNS dinámico, que permite asignar un nombre de dominio a una IP dinámica, que es la que nos ofrece el servidor virtual.
 
 \begin{figure}[htpb]
     \centering

@@ -9,18 +9,18 @@ En concreto, se destacan los sitios web \href{https://www.kaggle.com/}{Kaggle} y
 Son dos plataformas directamente enfocadas al entrenamiento de modelos de \textit{Machine Learning} y \textit{Deep Learning}.
 Ambas fomentan la colaboración entre usuarios y ofrecen una gran cantidad de recursos para la creación de modelos.
 
-En concreto, se ha utilizado un dataset de Kaggle para el entrenamiento del modelo y librerías específicos de Hugging Face para la creación del modelo en Python.
+En concreto, se ha utilizado un dataset de \textit{Kaggle} para el entrenamiento del modelo y librerías específicos de Hugging Face para la creación del modelo en Python.
 
 
 \section{Dataset}\label{seccion:dataset}
 Como ha sido comentado en el \autoref{chp-01}, un problema que se enfrentó en el primer acercamiento a la problemática que este proyecto pretende resolver fue la falta de una base de datos que contuviera audios con las emociones específicas que se querían clasificar.
 Al no haber impuesto restricciones, se ha optado por elegir un dataset ya existente.
 
-La búsqueda de base de datos se ha realizado en Kaggle.
-La popularidad de esta plafaforma no es vano, ya que cuenta con una gran cantidad de datasets de todo tipo.
-En concreto, se han realizado búsquedas de datasets relacionados con audios calsificados por emociones.
+La búsqueda de base de datos se ha realizado en \textit{Kaggle}.
+La popularidad de esta plataforma no es injustificada, ya que cuenta con una gran cantidad de datasets de todo tipo.
+En concreto, se han realizado búsquedas de datasets relacionados con audios clasificados por emociones.
 
-En Kaggle existen datasets oficiales creados por grandes organizaciones, y otros creados por usuarios de la plataforma.
+En \textit{Kaggle} existen datasets oficiales creados por grandes organizaciones, y otros creados por usuarios de la plataforma.
 La mayoría de los datasets son de libre acceso, por lo que tenemos la posibilidad de descargarlos y utilizarlos para nuestros propios proyectos.
 
 En este caso, se ha optado por utilizar un dataset llamado \textit{Audio Emotions} compartido por el usuario \textit{Uldis Valainis}. \cite{Kaggle-dataset}
@@ -49,7 +49,7 @@ Estas emociones son: \textit{neutral}, \textit{happy}, \textit{sad}, \textit{ang
 
 El dataset contiene un total de 12.798 audios, con una duración de 3 segundos cada uno.
 
-Echando un vistazo a la \autoref{fig:data-bars} y a la \autoref{fig:data-pie}, podemos observar un claro desbalance en la clase \textit{surprised}, que contiene un número muy inferior de audios que el resto de clases.
+Echando un vistazo a la \autoref{fig:data-bars} y a la \autoref{fig:data-pie}, podemos observar una clara falta de balance en la clase \textit{surprised}, que contiene un número muy inferior de audios que el resto de clases.
 Como no existen restricciones en cuanto a las clases que se quieren clasificar, se ha optado por eliminar esta clase del dataset, y quedarnos con las 6 clases restantes.
 De este modo se consigue un dataset más equilibrado, lo cual influirá positivamente en el entrenamiento del modelo.
 
@@ -91,7 +91,7 @@ Sin embargo, su uso estaba reservado a grandes empresas con grandes recursos, ya
 Además de esto, la gran complejidad que presentaban hacía que su uso fuera muy complicado para usuarios con pocos conocimientos en el campo del \textit{Deep Learning}.
 La aparición de librerías de un mayor nivel de abstracción ha acercado el uso de estas arquitecturas a usuarios con menos conocimientos.
 Una de las librerías más utilizadas es \textit{Transformers}, desarrollada y mantenida por \textit{Hugging Face}, que ofrece una gran cantidad de herramientas para la carga de modelos pre-entrenados, realizar ajustes finos de estos modelos, procesar datos de entrada, etc.
-Está pensado para poder ser usado por todo tipo de usuarios, desde usarios con pocos conocimientos que quieran usar modelos pre-entrenados, usuarios con conocimientos avanzados que quieran realizar un ajuste fino de los modelos pre-entrenados, hasta investigadores que quieran crear sus propios modelos. \cite{transformers-docs}
+Está pensado para poder ser usado por todo tipo de usuarios, desde usuarios con pocos conocimientos que quieran usar modelos pre-entrenados, usuarios con conocimientos avanzados que quieran realizar un ajuste fino de los modelos pre-entrenados, hasta investigadores que quieran crear sus propios modelos. \cite{transformers-docs}
 
 
 \subsection{Elección del modelo}\label{seccion:eleccion-del-modelo}
@@ -119,7 +119,7 @@ Una vez se ha seleccionado el modelo, se ha procedido a realizar el entrenamient
 \subsection{Preparación del entrenamiento}\label{seccion:preparacion-del-entrenamiento}
 Antes de comenzar el entrenamiento del modelo, es necesario realizar una serie de preparaciones previas.
 La siguiente elección consiste en decidir qué librería de bajo nivel se va a utilizar para el entrenamiento del modelo.
-\textit{Transformers} ofrece una documentación muy extensa con multitud de ejemplos en muhos campos, y dentro de estos ejemplos, podemos elegir entre \textit{PyTorch} y \textit{TensorFlow}, dos librerías de bajo nivel muy populares en el campo del \textit{Deep Learning}.
+\textit{Transformers} ofrece una documentación muy extensa con multitud de ejemplos en muchos campos, y dentro de estos ejemplos, podemos elegir entre \textit{PyTorch} y \textit{TensorFlow}, dos librerías de bajo nivel muy populares en el campo del \textit{Deep Learning}.
 
 En principio no debe existir diferencia entre utilizar una u otra, ya que ambas librerías ofrecen las mismas funcionalidades.
 Dependerá de la experiencia del usuario con una u otra, o de la preferencia del usuario.
@@ -135,7 +135,7 @@ Para esto, el modelo ofrece una herramienta que se encarga de procesar los datos
 
 El preprocesado de los datos, se basa en los siguientes pasos:
 \begin{enumerate}
-    \item Descarga de los datos desde Kaggle.
+    \item Descarga de los datos desde \textit{Kaggle}.
     \item Descarte de la clase \textit{surprised}.
     \item Creación de un dataframe con los datos descargados.
     \item Conversión a objeto interpretable por la librería de Hugging Face.
@@ -272,7 +272,7 @@ trainer.train()
 \end{lstlisting}
 
 
-Las posibilidades de la librería \textit{Transformers} son muy amplias, y permiten realizar ajustes finos del modelo, como por ejemplo, la posibilidad de utilizar diferentes optimizadores, diferentes funciones de pérdidas, diferentes métricas, etc.
+Las posibilidades de la librería \textit{Transformers} son muy amplias, y permiten realizar ajustes finos del modelo, como por ejemplo, la posibilidad de utilizar diferentes funciones de pérdidas, división de los datos en batches, diferentes métricas, etc.
 Esto permite que el usuario pueda ajustar el modelo a sus necesidades, y pueda realizar un entrenamiento más eficiente.
 
 En este caso, se ha optado por utilizar las opciones por defecto, e intentar mejorar resultados modificando algunos parámetros como el ratio de aprendizaje o el número de épocas de entrenamiento.

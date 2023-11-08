@@ -6,12 +6,12 @@
 %\lettrine[lraise=0.7, lines=1, loversize=-0.25]{E}{n}
 % Introduccion sobre el auge en el empleo de IA en los ultimos años
 \lettrine[lraise=-0.1, lines=2, loversize=0.2]{D}{urante} los últimos años, la sociedad ha experimentado un auge en el empleo de la Inteligencia Artificial (IA) en diferentes ámbitos. 
-La gran capacidad de escpecialización en un problema concreto que presentan estos sistemas, junto con la gran cantidad de datos que se generan en la actualidad, han hecho que la IA se haya convertido en una herramienta muy útil en la resolución de problemas complejos.
+La gran capacidad de especialización en un problema concreto que presentan estos sistemas, junto con la gran cantidad de datos que se generan en la actualidad, han hecho que la IA se haya convertido en una herramienta muy útil en la resolución de problemas complejos.
 
-Estas características han fomentado el empleo de soluciones basadas en IA, obtiendo resultados aceptables para problemas que de otro modo serían irresolubles.
+Estas características han fomentado el empleo de soluciones basadas en IA, obteniendo resultados aceptables para problemas que de otro modo serían irresolubles.
 
 De forma paralela, se observa un crecimiento en el interés por el uso de estas tecnologías.
-Muchos sistemas empiezan a aparecer en el día a día de usuario promedio, como por ejemplo: \cite{VIU_article}
+Muchos sistemas empiezan a aparecer en el día a día del usuario promedio, como por ejemplo: \cite{VIU_article}
 
 \begin{itemize}\itemsep1pt \parskip0pt \parsep0pt
 \item Sistemas de búsqueda y recomendación
@@ -25,19 +25,21 @@ Muchos sistemas empiezan a aparecer en el día a día de usuario promedio, como 
 Sin embargo, la investigación sobre la aceptación de tecnologías que incluyen IA está aún en curso. 
 Algunos estudios sugieren que en ciertos escenarios culturales, la necesidad de contacto humano no puede ser replicada o reemplazada. \cite{KELLY2023101925}
 
-Este trabajo busca adentrarse en los límities sobre qué puede hacer un modelo de IA, en concreto en el campo de classificación de audios.
+Este trabajo busca adentrarse en los límites sobre qué puede hacer un modelo de IA a día de hoy, en concreto en el campo de clasificación de audios.
 El objetivo es crear un modelo que sea capaz de clasificar audios en diferentes categorías, identificadas por emociones humanas. 
 
 Una vez creado el modelo, se aborda el problema de despliegue del modelo en un entorno de producción, para que pueda ser utilizado por usuarios finales.
 En un caso real de uso, podría diseñarse una interfaz o una API por ejemplo, de modo que la interacción con el modelo se adapte a las requerimientos del proyecto.
 
-Debido a esta clara diferenciación, la memoria ha sido dividia en dos partes, que darán nombre a los capítulos principales: \textbf{Modelado} y \textbf{Despliegue}.
+\medskip
+
+Debido a esta clara diferenciación, la memoria ha sido dividida en dos partes, que darán nombre a los capítulos principales: \textbf{Modelado} y \textbf{Despliegue}.
 En el capítulo \ref{chp-02} se aborda el problema de modelado, mientras que en el capítulo \ref{chp-03} se aborda el problema de despliegue.
 
 \section{Motivación}\label{sec:motivacion}
 
 La idea de realizar un modelo capaz de diferenciar emociones humanas a partir de audios surge de la participación en un proyecto anterior.
-Este proyecto, a grandes rasgos, busaba crear un modelo que sirviese de ayuda a las personas a detectar emociones muy concretas para el caso de aplicación.
+Este proyecto, a grandes rasgos, buscaba crear un modelo que sirviese de ayuda a las personas a detectar emociones específicas para el caso de aplicación.
 
 Por diversas circunstancias, el proyecto no pudo avanzar correctamente y acabó siendo abandonado.
 Sin embargo, un año más tarde y tras pensar en abordar de nuevo el problema, con un enfoque mucho más abierto, las sensaciones fueron muy positivas
@@ -47,7 +49,7 @@ En concreto, ha sido notable la diferencia en cuanto a todo lo relacionado con e
 
 % Hablar sobre aprendizaje personal durante este tiempo debido al TFM y a la experiencia laboral
 En segundo lugar, durante este tiempo, gracias al aprendizaje adquirido en el Máster y a la experiencia laboral, la problemática ha podido ser abordada con más madurez y conocimiento de las tecnologías existentes.
-Contar con algo de experiencia junto con una visión más amplia de las herramientas disponibles, permite dislumbrar opciones que antes eran invisibles.
+Contar con algo de experiencia junto con una visión más amplia de las herramientas disponibles, permite vislumbrar opciones que antes eran invisibles.
 Además, enfocar un problema conociendo la pila completa ayuda a dividir en bloques la solución y a buscar alternativas para cada uno de ellos en caso de que sea necesario.
 
 Por otro lado, al ser un trabajo con fines de aprendizaje, se eliminaron varias restricciones impuestas durante la realización del proyecto.
@@ -59,7 +61,7 @@ Esto generaba diversos problemas, ya que en ningún caso podrían salir de las i
 
 Por otro lado, otro obstáculo fue la creación del dataset, ya que los datos debían ser recogidos y etiquetados por la propia empresa.
 Esto puede parecer una liberación de carga de trabajo en un principio. 
-Sin emargo, al no disponer de datos de entrada, es difícil avanzar en el desarrollo del modelo.
+Sin embargo, al no disponer de datos de entrada, es difícil avanzar en el desarrollo del modelo.
 
 En este proyecto, al no estar diseñando la solución para un dataset concreto, se puede realizar una búsqueda más general en bancos de datos públicos y elegir alguno similar al objetivo.
 De este modo se podría haber avanzado en el desarrollo del modelo, mientras se recogían los datos por parte de la empresa.
@@ -76,14 +78,14 @@ Además, la aparición de herramientas de mayor alto nivel permiten un acercamie
 El enfoque de lo general a lo particular, junto con la división por bloques, permite avanzar en el desarrollo de cualquier proyecto, pero de nuevo, la experiencia ayuda en estas tareas.
 
 \subsubsection{Hardware}
-Uno de los prinicpiales problemas que presenta el desarrollo de modelos de IA es la necesidad de una alta capacidad de cómputo.
+Uno de los principales problemas que presenta el desarrollo de modelos de IA es la necesidad de una alta capacidad de cómputo.
 Otros inconvenientes, como la necesidad de una gran cantidad de datos pueden ser apaciguados empleando técnicas de Data Augmentation, pero para entrenar un modelo complejo es necesaria una gran capacidad de cómputo.
 
 No todos los problemas requieren de soluciones extremadamente complejas, de hecho en el mundo del Machine Learning (ML) a veces las soluciones más simples ofrecen mejores resultados.
 Sin embargo, como se verá más adelante, la complejidad del problema requiere de un modelo complejo, lo que nos obliga a disponer de hardware con gran capacidad de computación en paralelo si queremos obtener resultados en un tiempo razonable.
 
 Hoy en día existen diversas alternativas para entrenar grandes modelos aunque no dispongas de un gran equipo (el crecimiento en el número de alternativas viene motivado a su vez por el crecimiento en el interés en la IA).
-Continuando con las reflexiones anteriores, en este caso la solución ha sido emplear una plataforma de entrenamiento en la nube, brindando la posibilidad de entrenar modelos complejos sin necesidad de disponer de un equpo dedicado o desgastar en exceso un equipo personal, todo ello por un coste reudcido.
+Continuando con las reflexiones anteriores, en este caso la solución ha sido emplear una plataforma de entrenamiento en la nube, brindando la posibilidad de entrenar modelos complejos sin necesidad de disponer de un equipo dedicado o desgastar en exceso un equipo personal, todo ello por un coste reducido.
 
 Volviendo al proyecto original, es necesario recordar que esta solución no podría ser aplicada debido a que los datos no podrían salir de las instalaciones de la empresa.
 De todos modos, puede servir para iniciar en el proceso de investigación y creación de modelos alternativos, con datasets alternativos.
@@ -94,7 +96,7 @@ Ante un gran problema, difícil de dividir a simple vista, el no disponer de una
 Para que no ocurriera esto, se ha optado por buscar como resultado gráfico final lo mínimo necesario por una persona para poder utilizar el modelo.
 
 Más allá de la interfaz, el paradigma de despliegue de cualquier software requiere de un entorno robusto que asegure su funcionamiento.
-El aprendizaje recibido durante el máster sobre contenedores, ha permitido utilizarlos para encapsular el modelo como una aplicación web y desplegarlo en una plataforma de hosting, asegurando su funcionamiento.
+El aprendizaje recibido durante el máster sobre contenedores, ha permitido utilizarlos para encapsular el modelo como una aplicación web y realizar el despliegue en una plataforma de hosting, asegurando su funcionamiento.
 
 La conclusión en cuanto a este apartado es que, para poder pensar en un producto final, con una interfaz gráfica perfilada y plena funcionalidad, es necesario primero probar una versión más simple, con funcionalidad reducida, pero que permita validar el modelo y el despliegue.
 Teniendo esto en mente, es posible avanzar en el desarrollo del modelo, a la vez que se imaginan las distintas posibilidades para el caso de uso concreto.
@@ -105,7 +107,7 @@ Teniendo esto en mente, es posible avanzar en el desarrollo del modelo, a la vez
 Una vez definido el contexto en el que surge esta idea, vamos a definir cómo se va a desarrollar el proyecto.
 Debemos definir el objetivo y el alcance del proyecto, para no perder la visión del mismo y poder evaluar el resultado final.
 
-Al mismo tiempo, se inlcuye un listado de requisitos, que ayudarán a dar soporte a la definición del objetivo.
+Al mismo tiempo, se incluye un listado de requisitos, que ayudarán a dar soporte a la definición del objetivo.
 
 Además, se incluye la planificación temporal inicial del proyecto, en la que destacan varios hitos importantes.
 
@@ -167,7 +169,7 @@ En este caso, se ha optado por no profundizar en este aspecto, pero desde luego 
 Previamente, se ha explicado de qué trata el problema y de dónde surge la idea.
 En esta sección, intentamos responder a la pregunta de cómo se ha abordado el problema.
 
-Siguiendo el famoso dicho, divide y venverás, se ha optado por dividir el problema en dos bloques principales: \textbf{Creación del modelo} y \textbf{Despliegue del modelo}.
+Siguiendo el famoso dicho, divide y vencerás, se ha optado por dividir el problema en dos bloques principales: \textbf{Creación del modelo} y \textbf{Despliegue del modelo}.
 De este modo, podemos centrarnos en cada uno de los bloques por separado, sin perder la visión general del proyecto.
 
 Los dos bloques son lo suficientemente importantes y están separados entre sí lo suficiente como para que puedan ser abordados por separado y no interfieran entre sí.
