@@ -356,7 +356,7 @@ Son los resultados de una predicción, y se definen de la siguiente manera:
 El accuracy se calcula de la siguiente manera:
 
 \begin{equation}
-    Accuracy = \frac{TP + TN}{TP + TN + FP + FN} = 0.570
+    Accuracy = \frac{TP + TN}{TP + TN + FP + FN}
 \end{equation}
 
 Es un resultado bajo, pero hay que ponerlo en contexto.
@@ -382,7 +382,7 @@ Como en este caso tenemos 5 clases, al cálculo de la predicción general se le 
 
 % formula using average macro
 \begin{equation}
-    Precision = \frac{1}{n} \sum_{i=1}^{n} \frac{TP_i}{TP_i + FP_i} = 0.690
+    Precision = \frac{1}{n} \sum_{i=1}^{n} \frac{TP_i}{TP_i + FP_i}
 \end{equation}
 
 En este caso, se ha calculado el valor medio de la suma de las precisiones de cada clase.
@@ -401,7 +401,7 @@ Se calcula de la siguiente manera:
 De nuevo, el método utilizado para calcular la media es el mismo que en el caso de la precisión.
 
 \begin{equation}
-    Recall = \frac{1}{n} \sum_{i=1}^{n} \frac{TP_i}{TP_i + FN_i} = 0.570
+    Recall = \frac{1}{n} \sum_{i=1}^{n} \frac{TP_i}{TP_i + FN_i}
 \end{equation}
 
 \subsubsection{F1 Score}\label{seccion:f1-score}
@@ -416,7 +416,7 @@ Se calcula de la siguiente manera:
 De nuevo, el método utilizado para calcular la media es el mismo que en el caso de la precisión.
 
 \begin{equation}
-    F1 Score = \frac{1}{n} \sum_{i=1}^{n} 2 * \frac{Precision_i * Recall_i}{Precision_i + Recall_i} = 0.610
+    F1 Score = \frac{1}{n} \sum_{i=1}^{n} 2 * \frac{Precision_i * Recall_i}{Precision_i + Recall_i}
 \end{equation}
 
 

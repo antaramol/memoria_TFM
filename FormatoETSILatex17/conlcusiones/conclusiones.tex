@@ -3,26 +3,27 @@
 % quote from Einstein
 \epigraph{If we knew what it was we were doing, it would not be called research, would it?}{Albert Einstein}
 
-Una vez finalizado el proyecto, es momento de hacer una valoración del mismo. 
+\lettrine[lraise=-0.1, lines=2, loversize=0.2]{U}{na} vez finalizado el proyecto, es momento de hacer una valoración del mismo. 
 En este capítulo se exponen las conclusiones obtenidas tras la realización del proyecto, así como las posibles mejoras que se podrían realizar en un futuro.
 
 \section{Hitos conseguidos}
-Después de haber estado enfocado en un proyecto exigente durante un periodo de tiempo prolongado, la sensación suele ser de satisfacción.
+Después de haber estado enfocado en un proyecto exigente durante un periodo de tiempo prolongado, tener sentimientos encontrados es normal. 
 Pensar que se podrían haber realizado más pruebas, o que se podría haber mejorado algún aspecto, es inevitable.
 
 Sin embargo, hay que echar la vista atrás y ver de dónde venimos para entender el camino recorrido.
 El objetivo principal del proyecto, que era crear y desplegar un modelo clasificador de audios ha sido cumplido.
 
 Al no haber utilizado los requisitos de forma rigurosa durante el desarrollo del proyecto, es difícil determinar el grado de éxito del mismo.
-Se van a enumerar los requisitos que han sido cumplidos:
+Algunos de los aspectos más importantes que se han conseguido son los siguientes:
 
 \begin{itemize}
-    \item El modelo es capaz de clasificar audios por emociones con una precisión superior al 70\%.
+    \item El modelo es capaz de clasificar los audios del dataset original con una precisión superior al 70\%.
+    \item Conocemos las debilidades del modelo y tenemos ideas sobre cómo mejorarlas.
     \item El sistema es accesible desde cualquier navegador web.
     \item El modelo puede ser reentrenado con nuevos datos, o entrenar un nuevo modelo.
     \item Todo el código ha sido desarrollado utilizando librerías de código abierto.
     \item La utilización de contenedores permite desplegar el sistema en cualquier máquina que tenga instalado Docker.
-    \item La implementación web ha sido implementada sobre HTTPS.
+    \item El servidor web utiliza el protocolo HTTPS para asegurar la comunicación con el cliente.
 \end{itemize}
 
 Algunos requisitos como los tiempos de respuesta del sistema dependen en gran medida de la capacidad de computación.
@@ -32,7 +33,7 @@ Por lo tanto, se necesitaría un estudio más profundo para medirlos correctamen
 
 \section{Lecciones aprendidas}
 El aprendizaje adquirido durante el desarrollo del proyecto ha sido muy valioso.
-Más allá de las cuestiones puramente técnicas, se han adquirido conocimientos sobre cómo enfocar un proyecto de estas características.
+Más allá de las cuestiones puramente técnicas, se han adquirido múltiples habilidades que serán de gran utilidad en el futuro.
 
 El hecho de enfocar el proyecto como un problema real, obliga a imaginarse qué tipo de problemas pueden surgir y qué elección es la más adecuada para resolverlos.
 Aunque muchos requisitos han sido obviados, sobre todo los relacionados con la seguridad, entender las implicaciones que tienen las decisiones tomadas es muy enriquecedor.
@@ -50,49 +51,64 @@ En esta línea, es importante entender que muchas veces la solución no es un ca
 Esta sección pretende servir de autocrítica y de guía para futuros proyectos que quieran continuar con el trabajo realizado.
 Se van a enumerar los puntos que se consideran más importantes para mejorar el proyecto.
 
+
+\subsection{Mejorar el modelo}
+A pesar de contar con un modelo capaz de clasificar audios, hemos comprobado que los resultados pueden ser mejorables.
+En particular, sería conveniente prestar atención a las clases más problemáticas para subir el porcentaje de acierto.
+
+Para ello, se podrían realizar las siguientes acciones:
+\begin{itemize}
+    \item Aumentar el número de muestras de las clases más problemáticas.
+    \item Ajustar parámetros de entrenamiento.
+    \item Probar distintos modelos preentrenados.
+    \item Probar técnicas de Data Augmentation.
+\end{itemize}
+
+
+
+
 \subsection{Añadir funcionalidad al sistema}
 % Explicar que solo hace una cosa
-Un punto particularmente débil de la implementación final del sistema es que tiene una funcionalidad muy limitada.
+Otro punto particularmente débil de la implementación final del sistema es que tiene una funcionalidad muy limitada.
 El sistema es capaz de clasificar audios de entrada que se suponen válidos, pero nada más.
 
 Sería interesante añadir funcionalidades que permitan al usuario interactuar con el sistema de forma más natural.
 Por ejemplo, grabar de forma continua y detectar emociones dependientes del tiempo.
 Esta nueva funcionalidad no se consigue simplemente grabando de forma continua y haciendo predicciones, sería conveniente añadir un bloque detector de actividad vocal.
 
-Otra posible mejora podría ser un sistema capaz de detetar palabras clave. 
+Una posible futura mejora podría ser un sistema capaz de detetar palabras clave. 
 El desarrollo de este tipo de sistemas es muy similar al de los clasificadores de emociones, pero se necesitaría un dataset de grabaciones de la palabra clave en cuestión.
 Acompañado de un estudio de las palabras clave que pudieran resultar de interés, este nuevo sitema podría ser de gran utilidad al clasificador de emociones.
 
-Otra línea de mejora podría ser identificar el hablante.
+También se podría investigar cómo identificar el hablante.
 Hasta el momento hemos supuesto que hay un solo hablante, pero en caso de que hubiera más de uno, sería interesante identificarlos para poder obtener información temporal de cada uno de ellos.
 
 
-\subsection{Resultados del modelo}
-En caso de presentar este proyecto como un producto o una publicación, sería necesario mejorar el apartado de resultados.
-Debido al tiempo limitado, no se ha podido indagar en detallar métricas de rendimiento, hacer comparación de clases, etc.
-
-Más allá de la métrica de precisión, sería interesante mostrar la matriz de confusión del modelo, así como la precisión por clase.
-
-""""esto quizas lo puedo hacer hoy"""
-
 \subsection{Verificación de funcionamiento}
 La verificación del funcionamiento de un sistema puede llegar a consumir la mayor parte del tiempo de desarrollo.
-Este tiempo se incrementa especialmente para sistemas cuya disponibilidad es crítica, como pueden ser proyectos relacionados con la salud.
+En proyectos cuya disponibilidad es crítica, o se necesita un alto grado de confianza en el sistema, es necesario realizar una verificación exhaustiva del mismo.
 
 Asegurar que el sistema no va a fallar es muy complejo, y requiere de un estudio profundo de los posibles casos de uso.
+
+Para nuestro caso de uso, la evaluación del modelo debe ser mucho más exhaustiva, contando con un dataset de test mucho más variado (audios en varios idiomas, con ruido de fondo, audios de baja calidad, audios sin palabras, grabaciones genuinas, etc.).
+
+En cuanto al servidor web, se debería realizar una verificación de la disponibilidad del sistema, pruebas de carga, pruebas de seguridad, etc.
+
 En este proyecto, se ha realizado una verificación básica del funcionamiento del sistema, pero no se ha profundizado en ella.
 
 
-\subsection{Seguridad}
-Como hemos comentado más de una vez en este documento, entendemos que la seguridad es un aspecto muy importante en cualquier sistema, pero ha sido pasada por alto en gran medida en este proyecto.
-En un proyecto real, existiría un equipo de seguridad que se encargaría de auditar el sistema y de asegurar que no existen vulnerabilidades.
-
-En caso de trabajar con datos reales, sería conveniente establecer unos requisitos de seguridad más estrictos, y realizar un estudio de las posibles vulnerabilidades del sistema.
-Cuanto más sensible sea la información, más susceptible será de ser atacada.
 
 \subsection{Optimización de la solución}
-Cambiar la forma de implementar el sistema de modo que se optimicen los tiempos de carga y de respuesta, el espacio de almacenamiento, etc. abriría las puertas a nuevas posibilidades.
-Por ejemplo, reducir el tiempo que tarda el sistema desde que se graba el audio hasta que podemos grabar uno nuevo, permitiría realizar predicciones en tiempo real.
+Reducir los recursos necesarios que necesita el sistema es siempre algo positivo.
+No sirve de nada un modelo con un 99\% de acierto si necesita más del tiempo crítico para realizar la predicción.
+
+Por ello, paralelamente a buscar la mejor solución, en un proyecto real sería necesario balancear la solución con los recursos disponibles.
+
+En caso de faltar recursos para realizar la predicción, se podría barajar la implementación de una solución 'b' que sea menos precisa pero más rápida.
+
+La aplicación también debe ser optimizada según el número de usuarios que se espera que la utilicen.
+En caso de que el número de usuarios sea muy elevado, se debería estudiar la posibilidad de utilizar un servidor más potente, o incluso utilizar varios servidores en paralelo.
+El uso de contenedores facilita esta tarea, ya que se podrían desplegar instancias del servidor web en varios servidores y balancear la carga entre ellos.
 
 
 
