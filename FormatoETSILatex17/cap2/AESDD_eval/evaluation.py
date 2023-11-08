@@ -3,12 +3,12 @@ from glob import glob
 import pandas as pd
 
 
-df=pd.DataFrame(glob('AESDD/*/*.wav'),columns=['paths'])
+df=pd.DataFrame(glob('./AESDD/*/*.wav'),columns=['paths'])
 df.head()
 #%%
-# path is like AESDD\label\filename.wav
+# path is like AESDD/label/filename.wav
 
-df['labels']=df.paths.apply(lambda x: x.split('\\')[1])
+df['labels']=df.paths.apply(lambda x: x.split('/')[2])
 df.head()
 # %%
 from transformers import pipeline
@@ -21,19 +21,17 @@ import torch
 torch.cuda.is_available()
 
 # %%
-BLACKLIST = ['AESDD\\sadness\\s05 (3).wav']
-
-# Remove blacklisted samples
-df = df[~df.paths.isin(BLACKLIST)]
-
-# %%
-# get predictions and print every 1000 samples
+# get predictions
 # predictions = [pipe(path)[0]['label'] for path in df.paths]
 predictions = []
 for path in df.paths:
-    print(path)
+    # print(path)
     # print(pipe(path)[0]['label'])
-    predictions.append(pipe(path)[0]['label'])
+    try:
+        predictions.append(pipe(path)[0]['label'])
+    except:
+        print(f'Error with {path}')
+        predictions.append('Neutral')
 
 # %%
 

@@ -70,8 +70,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import itertools
 
-# sort labels in reverse order
-labels.sort(reverse=True)
 mcm = multilabel_confusion_matrix(y_true, y_pred, labels=labels)
 print(mcm)
 
@@ -123,18 +121,18 @@ def plot_confusion_matrix(cm, classes,
 
 
 # Plot the confusion matrix
-plt.figure(figsize=(15,12))
+plt.figure(figsize=(10, 10))
 plot_confusion_matrix(cm, classes=labels, normalize=True, title='Normalized confusion matrix')
 # save the figure
-plt.savefig('FormatoETSILatex17/cap2/images/normalized_confusion_matrix.png')
+plt.savefig(os.path.join(local_dir, 'images/normalized_confusion_matrix.png'))
 # plt.show()
 
 
 # Plot the confusion matrix
-plt.figure(figsize=(15, 12))
+plt.figure(figsize=(10, 10))
 plot_confusion_matrix(cm, classes=labels, normalize=False, title='Confusion matrix')
 # save the figure
-plt.savefig('FormatoETSILatex17/cap2/images/confusion_matrix.png')
+plt.savefig(os.path.join(local_dir, 'images/confusion_matrix.png'))
 # plt.show()
 
 
@@ -143,20 +141,27 @@ plt.savefig('FormatoETSILatex17/cap2/images/confusion_matrix.png')
 from sklearn.metrics import ConfusionMatrixDisplay
 
 # 5 subplots for 5 labels
-f, axes = plt.subplots(1, len(labels), figsize=(15, 3))
+f, axes = plt.subplots(1, len(labels), figsize=(10, 3))
 axes = axes.ravel()
 
 for i in range(len(labels)):
     disp = ConfusionMatrixDisplay(confusion_matrix=mcm[i],
-                                  display_labels=[0, i])
+                                  display_labels=['no', 'yes'])
     disp.plot(ax=axes[i], cmap=plt.cm.Blues, xticks_rotation=90)
+    if i == 0:
+        # set label in bold font
+        disp.ax_.set_ylabel('True label', fontsize=15, fontweight='bold')
+    else:
+        disp.ax_.set_ylabel('')
+
     disp.ax_.set_title(labels[i])
     disp.im_.colorbar.remove()
 
+plt.tight_layout()
 plt.subplots_adjust(wspace=0.5)
 f.colorbar(disp.im_, ax=axes)
 # save the figure
-plt.savefig('FormatoETSILatex17/cap2/images/multilabel_confusion_matrix.png')
+plt.savefig(os.path.join(local_dir, 'images/multilabel_confusion_matrix.png'))
 # plt.show()
 
 
