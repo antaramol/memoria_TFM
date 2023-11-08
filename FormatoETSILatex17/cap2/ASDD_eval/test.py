@@ -4,13 +4,17 @@ import pickle
 import os
 local_dir = os.path.dirname(os.path.realpath(__file__))
 
-with open(os.path.join(local_dir, 'df.pkl'), 'rb') as f:
+with open(os.path.join(local_dir, 'predictions.pkl'), 'rb') as f:
     df=pickle.load(f)
 
-y_true = df['y_true'].tolist()
-y_pred = df['y_pred'].tolist()
+y_true = df.y_true.values
+y_pred = df.y_pred.values
 
 labels = list(set(y_true))
+
+print(len(y_true))
+print(len(y_pred))
+print(len(labels))
 
 
 from sklearn.metrics import precision_score
@@ -30,6 +34,8 @@ print(mcm)
 cm = confusion_matrix(y_true, y_pred, labels=labels)
 print(cm)
 
+# sum all elements in confusion matrix and print it
+print('Sum of all elements in confusion matrix: %d' % cm.sum())
 
 # get f1 score
 f1 = f1_score(y_true, y_pred, average='macro')
@@ -92,7 +98,7 @@ def plot_confusion_matrix(cm, classes,
 plt.figure(figsize=(10, 10))
 plot_confusion_matrix(cm, classes=labels, normalize=True, title='Normalized confusion matrix')
 # save the figure
-# plt.savefig('images/normalized_confusion_matrix.png')
+plt.savefig('images/normalized_confusion_matrix.png')
 plt.show()
 
 
@@ -100,7 +106,7 @@ plt.show()
 plt.figure(figsize=(10, 10))
 plot_confusion_matrix(cm, classes=labels, normalize=False, title='Confusion matrix')
 # save the figure
-# plt.savefig('images/confusion_matrix.png')
+plt.savefig('images/confusion_matrix.png')
 plt.show()
 
 
@@ -122,7 +128,7 @@ for i in range(len(labels)):
 plt.subplots_adjust(wspace=0.5)
 f.colorbar(disp.im_, ax=axes)
 # save the figure
-# plt.savefig('images/multilabel_confusion_matrix.png')
+plt.savefig('images/multilabel_confusion_matrix.png')
 plt.show()
 
 

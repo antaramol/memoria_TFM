@@ -303,3 +303,6 @@ TSWLatexianTemp*
 
 *.ist
 *.tmp
+
+# dataset folder
+AESDD/
