@@ -1,3 +1,5 @@
+
+#%%
 import pickle
 
 # get local dir
@@ -11,6 +13,7 @@ y_true = df.y_true.values
 y_pred = df.y_pred.values
 
 labels = list(set(y_true))
+labels.sort()
 
 print(len(y_true))
 print(len(y_pred))
@@ -28,15 +31,6 @@ from sklearn.metrics import multilabel_confusion_matrix
 accuracy = sum([1 for i in range(len(y_true)) if y_true[i] == y_pred[i]]) / len(y_true)
 print('Accuracy: %.3f' % accuracy)
 
-mcm = multilabel_confusion_matrix(y_true, y_pred, labels=labels)
-print(mcm)
-
-cm = confusion_matrix(y_true, y_pred, labels=labels)
-print(cm)
-
-# sum all elements in confusion matrix and print it
-print('Sum of all elements in confusion matrix: %d' % cm.sum())
-
 # get f1 score
 f1 = f1_score(y_true, y_pred, average='macro')
 print('F1 score: %.3f' % f1)
@@ -50,11 +44,39 @@ print('Precision: %.3f' % precision)
 recall = recall_score(y_true, y_pred, average='macro')
 print('Recall: %.3f' % recall)
 
+# print f1_score, precision and recall for each label
+for label in labels:
+    true_positives = sum([1 for i in range(len(y_true)) if y_true[i] == label and y_pred[i] == label])
+    false_positives = sum([1 for i in range(len(y_true)) if y_true[i] != label and y_pred[i] == label])
+    false_negatives = sum([1 for i in range(len(y_true)) if y_true[i] == label and y_pred[i] != label])
+    true_negatives = sum([1 for i in range(len(y_true)) if y_true[i] != label and y_pred[i] != label])
 
+    precision = true_positives / (true_positives + false_positives)
+    recall = true_positives / (true_positives + false_negatives)
+    f1 = 2 * precision * recall / (precision + recall)
+
+    print(f'True positives: {true_positives}, False positives: {false_positives}, False negatives: {false_negatives}, True negatives: {true_negatives}')
+    print(f'Label: {label}, F1 score: {f1}, Precision: {precision}, Recall: {recall}')
+
+
+
+
+
+#%%
 # plot confusion matrix
 import matplotlib.pyplot as plt
 import numpy as np
 import itertools
+
+mcm = multilabel_confusion_matrix(y_true, y_pred, labels=labels)
+print(mcm)
+
+cm = confusion_matrix(y_true, y_pred, labels=labels)
+print(cm)
+
+#%%
+# sum all elements in confusion matrix and print it
+print('Sum of all elements in confusion matrix: %d' % cm.sum())
 
 # save all figures into images folder
 import os
@@ -90,24 +112,25 @@ def plot_confusion_matrix(cm, classes,
                  horizontalalignment="center",
                  color="white" if cm[i, j] > thresh else "black")
         
-    plt.tight_layout()
     plt.ylabel('True label', fontsize=20)
     plt.xlabel('Predicted label', fontsize=20)
+    plt.tight_layout()
+
 
 # Plot the confusion matrix
-plt.figure(figsize=(10, 10))
+plt.figure(figsize=(15,12))
 plot_confusion_matrix(cm, classes=labels, normalize=True, title='Normalized confusion matrix')
 # save the figure
-plt.savefig('images/normalized_confusion_matrix.png')
-plt.show()
+plt.savefig('FormatoETSILatex17/cap2/images/normalized_confusion_matrix.png')
+# plt.show()
 
 
 # Plot the confusion matrix
-plt.figure(figsize=(10, 10))
+plt.figure(figsize=(15, 12))
 plot_confusion_matrix(cm, classes=labels, normalize=False, title='Confusion matrix')
 # save the figure
-plt.savefig('images/confusion_matrix.png')
-plt.show()
+plt.savefig('FormatoETSILatex17/cap2/images/confusion_matrix.png')
+# plt.show()
 
 
 # plot multilabel confusion matrix
@@ -115,7 +138,7 @@ plt.show()
 from sklearn.metrics import ConfusionMatrixDisplay
 
 # 5 subplots for 5 labels
-f, axes = plt.subplots(1, len(labels), figsize=(20, 5))
+f, axes = plt.subplots(1, len(labels), figsize=(15, 3))
 axes = axes.ravel()
 
 for i in range(len(labels)):
@@ -128,8 +151,8 @@ for i in range(len(labels)):
 plt.subplots_adjust(wspace=0.5)
 f.colorbar(disp.im_, ax=axes)
 # save the figure
-plt.savefig('images/multilabel_confusion_matrix.png')
-plt.show()
+plt.savefig('FormatoETSILatex17/cap2/images/multilabel_confusion_matrix.png')
+# plt.show()
 
 
 

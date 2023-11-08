@@ -147,8 +147,7 @@ El preprocesado de los datos, se basa en los siguientes pasos:
 \end{enumerate}
 
 \begin{lstlisting}[language=Python, caption=Preprocesado del dataset, label={code:download-data}]
-
-import glob
+from glob import glob
 import pandas as pd
 import datasets
 
@@ -224,7 +223,6 @@ En el \textbf{\href{https://huggingface.co/antonjaragon/emotions_6_classes_small
 
 
 \begin{lstlisting}[language=Python, caption=Entrenamiento del modelo, label={code:train-model}]
-
 import evaluate
 accuracy = evaluate.load("accuracy")
 
@@ -278,18 +276,17 @@ Esto permite que el usuario pueda ajustar el modelo a sus necesidades, y pueda r
 En este caso, se ha optado por utilizar las opciones por defecto, e intentar mejorar resultados modificando algunos parámetros como el ratio de aprendizaje o el número de épocas de entrenamiento.
 Al ser un procesamiento muy costoso, no se ha podido profundizar mucho en este aspecto, pero se ha conseguido un modelo que ofrece una funcionalidad básica.
 
-Los resultados obtenidos por el mejor modelo son los siguientes:
+Los resultados obtenidos por el mejor modelo tras el entrenamiento son los siguientes:
 \begin{itemize}
     \item \textbf{Accuracy}: 0.7920
     \item \textbf{Loss}: 0.9106
 \end{itemize} 
 
 
-
 \section{Saturn Cloud}\label{seccion:saturn-cloud}
 Para el entrenamiento del modelo, se ha hecho uso de los recursos gratuitos que ofrece la plataforma \textit{Saturn Cloud}.
 
-El proceso de entrenamiento de un modelo de \textit{Deep Learning} es muy costoso computacionalmente, y requiere de una gran capacidad de cómputo.
+El proceso de entrenamiento de un modelo de \textit{Deep Learning} implica un elevado coste computacional.
 Las primeras pruebas se realizaron en un portátil personal con una tarjeta gráfica integrada.
 
 Realizar entrenamientos pesados de varias horas de duración no es viable para un ordenador personal, ya que el desgaste sería muy elevado.
@@ -307,12 +304,187 @@ Este tipo de plataformas están directamente enfocadas al entrenamiento de model
 Existe multitud de imágenes pre-configuradas con las herramientas más utilizadas, y además, ofrecen la posibilidad de crear imágenes personalizadas con las herramientas que necesitemos.
 En concreto, se han utilizado imágenes \textit{Debian} con \textit{PyTorch} pre-instalado.
 
-\begin{figure}\label{fig:saturn-cloud}
+\begin{figure}[htpb]
     \centering
     \includegraphics[width=0.8\textwidth]{cap2/images/saturn-cloud.png}
     \caption{Ejemplo de instancia activa con GPU en Saturn Cloud}
+    \label{fig:saturn-cloud}
     
 \end{figure}
+
+
+\section{Evaluación del modelo}\label{seccion:evaluacion-del-modelo}
+Conocemos el accuracy del modelo tras el entrenamiento, pero realmente no tenemos suficiente información para saber si el modelo es capaz de clasificar correctamente los audios.
+Tampoco sabemos exactamente dónde podrían estar las debilidades del modelo, por lo que estaríamos a ciegas para intentar mejorar su desempeño.
+
+Debemos extraer más información del modelo para poder evaluarlo correctamente.
+Esta información ha sido obtenida mediante el cálculo de métricas de evaluación del modelo, y mediante la visualización de la matriz de confusión.
+
+\subsection{Dataset de evaluación}\label{seccion:dataset-de-evaluacion}
+Para poder evaluar el modelo, se ha utilizado un dataset diferente al utilizado para el entrenamiento.
+El dataset elegido es el dataset \textit{AESDD} \cite{AESDD_1}\cite{AESDD_2}, que contiene audios grabados por actores interpretando diferentes emociones.
+
+El idioma de los audios es el griego, cuenta con un total de 7.000 audios, y una duración de 3 a 10 segundos cada uno.
+Están clasificados en las siguientes emociones: \textit{\textbf{anger}}, \textit{\textbf{disgust}}, \textit{\textbf{fear}}, \textit{\textbf{happiness}} y \textit{\textbf{sadness}}.
+
+La elección de este dataset se debe principalmente a la similitud que presenta con el dataset utilizado para el entrenamiento.
+Esto facilita la comparación de los resultados obtenidos con el modelo entrenado, y nos permite evaluar el desempeño del modelo en un escenario más realista.
+
+Además, al ser un dataset de un idioma diferente, supone un reto mayor para el modelo, ya que no ha sido entrenado con audios en griego.
+El modelo no es capaz de transcribir los audios, pero las emociones no son expresadas del mismo modo entre diferentes culturas.
+Esta prueba nos ofrece una visión más realista de cómo se comportaría el modelo en un escenario real.
+
+\subsection{Métricas de evaluación}\label{seccion:metricas-de-evaluacion}
+Para calcular las métricas, se han realizado predicciones con el modelo sobre el dataset de evaluación.
+Estas predicciones se han comparado con las etiquetas reales de los audios, y se han calculado las métricas de evaluación.
+
+\subsubsection{Accuracy}\label{seccion:accuracy}
+El \textit{accuracy} se define como la proporción de predicciones correctas realizadas por el modelo.
+Es la métrica más utilizada para evaluar el desempeño de un modelo, ya que nos ofrece una visión general del desempeño del modelo.
+También fue la métrica utilizada para evaluar el desempeño del modelo durante el entrenamiento.
+
+% definicion de TP TN FP FN
+Primero es necesario definir los términos \textit{True Positive}, \textit{True Negative}, \textit{False Positive} y \textit{False Negative}.
+Son los resultados de una predicción, y se definen de la siguiente manera:
+\begin{itemize}
+    \item \textbf{True Positive (TP)}: El modelo predice correctamente la clase positiva.
+    \item \textbf{True Negative (TN)}: El modelo predice correctamente la clase negativa.
+    \item \textbf{False Positive (FP)}: El modelo predice incorrectamente la clase positiva.
+    \item \textbf{False Negative (FN)}: El modelo predice incorrectamente la clase negativa.
+\end{itemize}
+
+El accuracy se calcula de la siguiente manera:
+
+\begin{equation}
+    Accuracy = \frac{TP + TN}{TP + TN + FP + FN} = 0.570
+\end{equation}
+
+Es un resultado bajo, pero hay que ponerlo en contexto.
+
+El dataset fue sometido a un experimento en el que un grupo de personas clasificó los audios en las mismas clases que el modelo. \cite{AESDD_webpage}
+El resultado obtenido fue un accuracy de 0.74, no muy lejos del resultado obtenido con el modelo.
+
+De todos modos, es muy mejorable, pero no tenemos información sobre cómo mejorarlo.
+Necesitamos más métricas.
+
+\subsubsection{Precision}\label{seccion:precision}
+La \textit{precision} se define como la proporción de predicciones positivas correctas entre el total de predicciones positivas realizadas por el modelo.
+Nos informa de cuántas de las predicciones positivas son realmente positivas.
+Es útil para detectar si los falsos positivos son un problema en nuestro modelo.
+
+Se calcula de la siguiente manera:
+
+\begin{equation}
+    Precision = \frac{TP}{TP + FP}
+\end{equation}
+
+Como en este caso tenemos 5 clases, al cálculo de la predicción general se le aplica una media aritmética para obtener la precisión de cada clase.
+
+% formula using average macro
+\begin{equation}
+    Precision = \frac{1}{n} \sum_{i=1}^{n} \frac{TP_i}{TP_i + FP_i} = 0.690
+\end{equation}
+
+En este caso, se ha calculado el valor medio de la suma de las precisiones de cada clase.
+Hay diversos métodos para calcular la media, cada uno interpreta la precisión de una manera diferente.
+Este método es el más directo, pero para obtener una visión más completa del desempeño del modelo, se deberían estudiar los resultados de cada clase por separado.
+
+\subsubsection{Recall}\label{seccion:recall}
+El \textit{recall} se define como la proporción de predicciones positivas correctas entre el total de predicciones positivas reales.
+Se utiliza para determinar cuál es el mejor modelo en caso de tener un alto número de falsos negativos.
+
+Se calcula de la siguiente manera:
+\begin{equation}
+    Recall = \frac{TP}{TP + FN}
+\end{equation}
+
+De nuevo, el método utilizado para calcular la media es el mismo que en el caso de la precisión.
+
+\begin{equation}
+    Recall = \frac{1}{n} \sum_{i=1}^{n} \frac{TP_i}{TP_i + FN_i} = 0.570
+\end{equation}
+
+\subsubsection{F1 Score}\label{seccion:f1-score}
+El \textit{F1 Score} se define como la media armónica entre la precisión y el recall.
+Es utilizado cuando se busca un equilibrio entre ambas métricas.
+
+Se calcula de la siguiente manera:
+\begin{equation}
+    F1 Score = 2 * \frac{Precision * Recall}{Precision + Recall}
+\end{equation}
+
+De nuevo, el método utilizado para calcular la media es el mismo que en el caso de la precisión.
+
+\begin{equation}
+    F1 Score = \frac{1}{n} \sum_{i=1}^{n} 2 * \frac{Precision_i * Recall_i}{Precision_i + Recall_i} = 0.610
+\end{equation}
+
+
+% plot model metrics table
+
+% Label: anger, F1 score: 0.617, Precision: 0.654, Recall: 0.583
+% Label: disgust, F1 score: 0.033, Precision: 1.000, Recall: 0.017
+% Label: fear, F1 score: 0.710, Precision: 0.598, Recall: 0.874
+% Label: happiness, F1 score: 0.561, Precision: 0.435, Recall: 0.790
+% Label: sadness, F1 score: 0.663, Precision: 0.763, Recall: 0.586
+
+\begin{table}[htpb]
+    \centering
+    \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Metric} & \textbf{Precision} & \textbf{Recall} & \textbf{F1 Score} \\ \hline
+        \textbf{anger} & 0.654 & 0.583 & 0.617 \\ \hline
+        \textbf{disgust} & 1.000 & 0.017 & 0.033 \\ \hline
+        \textbf{fear} & 0.598 & 0.874 & 0.710 \\ \hline
+        \textbf{happiness} & 0.435 & 0.790 & 0.561 \\ \hline
+        \textbf{sadness} & 0.763 & 0.586 & 0.663 \\ \hline
+    \end{tabular}
+    \caption{Métricas de evaluación del modelo}
+    \label{tab:model-metrics}
+\end{table}
+
+
+\subsubsection{Matriz de confusión}\label{seccion:matriz-de-confusion}
+La matriz de confusión es una herramienta que nos permite visualizar los resultados de las predicciones realizadas por el modelo.
+Muestra la cantidad de predicciones correctas e incorrectas realizadas por el modelo, organizadas por clase.
+
+Nos permite obtener información sobre las relaciones entre las clases, de modo que podemos determinar cómo de bien identifica el modelo cada clase.
+Es también una forma fácil de detectar si el modelo está confundiendo dos clases.
+
+En nuestro caso, lo primero que salta a la vista al ver la \autoref{fig:confusion-matrix} es que el modelo no es capaz de identificar correctamente la clase \textit{disgust}.
+Esto puede deberse a que quizás el etiquetado de audios es diferente entre el dataset de entrenamiento y el dataset de evaluación.
+
+La matriz de confusión nos ha ayudado a descubrir este problema.
+Mejorando el etiquetado de los dataset nos ayudaría a mejorar el accuracy.
+
+Vemos también que la case \textit{fear} es la que mejor identifica el modelo, y la clase \textit{happiness} es la que peor identifica. 
+Para mejorar este aspecto podríamos añadir más audios de la clase \textit{happiness} al dataset de entrenamiento. 
+
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{cap2/images/confusion_matrix.png}
+    \caption{Matriz de confusión del modelo}
+    \label{fig:confusion-matrix}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{cap2/images/multilabel_confusion_matrix.png}
+    \caption{Matriz de confusión multi clase del modelo}
+    \label{fig:confusion-matrix-multilabel}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{cap2/images/normalized_confusion_matrix.png}
+    \caption{Matriz de confusión normalizada del modelo}
+    \label{fig:confusion-matrix-normalized}
+\end{figure}
+
 
 
 
