@@ -6,29 +6,41 @@
 \lettrine[lraise=-0.1, lines=2, loversize=0.2]{U}{na} vez finalizado el proyecto, es momento de hacer una valoración del mismo. 
 En este capítulo se exponen las conclusiones obtenidas tras la realización del proyecto, así como las posibles mejoras que se podrían realizar en un futuro.
 
-\section{Hitos conseguidos}
+\section{Cumplimiento de requisitos}
 Después de haber estado enfocado en un proyecto exigente durante un periodo de tiempo prolongado, tener sentimientos encontrados es normal. 
 Pensar que se podrían haber realizado más pruebas, o que se podría haber mejorado algún aspecto, es inevitable.
 
 Sin embargo, hay que echar la vista atrás y ver de dónde venimos para entender el camino recorrido.
 El objetivo principal del proyecto, que era crear y desplegar un modelo clasificador de audios ha sido cumplido.
 
-Al no haber utilizado los requisitos de forma rigurosa durante el desarrollo del proyecto, es difícil determinar el grado de éxito del mismo.
-Algunos de los aspectos más importantes que se han conseguido son los siguientes:
+Para entender el grado de éxito del proyecto, es necesario recordar los requisitos que se establecieron en el capítulo \ref{chp-02} y ver cuáles de ellos se han cumplido.
 
-\begin{itemize}
-    \item El modelo es capaz de clasificar los audios del dataset original con una precisión superior al 70\%.
-    \item Conocemos las debilidades del modelo y tenemos ideas sobre cómo mejorarlas.
-    \item El sistema es accesible desde cualquier navegador web.
-    \item El modelo puede ser reentrenado con nuevos datos, o entrenar un nuevo modelo.
-    \item Todo el código ha sido desarrollado utilizando librerías de código abierto.
-    \item La utilización de contenedores permite desplegar el sistema en cualquier máquina que tenga instalado Docker.
-    \item El servidor web utiliza el protocolo HTTPS para asegurar la comunicación con el cliente.
-\end{itemize}
+\subsubsection{Requisitos funcionales}
+Se han cumplido todos los requisitos funcionales.
+El modelo es capaz de clasificar audios de entrada en formato WAV, y el sistema es accesible desde cualquier navegador web.
+Además, el proceso de entrenamiento es replicable, y se puede entrenar un nuevo modelo con nuevos datos.
 
-Algunos requisitos como los tiempos de respuesta del sistema dependen en gran medida de la capacidad de computación.
-Además, pueden ser variables dependiendo de la carga de trabajo del servidor, de la calidad de la red, etc.
-Por lo tanto, se necesitaría un estudio más profundo para medirlos correctamente.
+No se determinó ningún porcentaje de acierto mínimo, pero esta característica sería algo normal en un proyecto de estas características.
+
+\subsubsection{Requisitos operacionales}
+Debido a la falta de pruebas exhaustivas, no se puede asegurar que el sistema cumpla los requisitos operacionales con un alto grado de confianza.
+Por ejemplo, es accesible desde cualquier y en cualquier momento, pero no se ha realizado un estudio de la disponibilidad del sistema.
+
+Tampoco sabemos cómo puede comportarse el sistema con una carga de trabajo elevada.
+Queda pendiente para líneas futuras la elaboración de un estudio de rendimiento del sistema y verificación de los requisitos operacionales.
+
+\subsubsection{Requisitos de diseño}
+El sistema cumple con los requisitos de diseño establecidos.
+
+Estos requisitos fueron establecidos conociendo la tecnología que se iba a utilizar, por lo que no ha habido ningún problema en este aspecto.
+Sin embargo, en un proyecto real, el diseño deberá adaptarse al entorno en el que se vaya a desplegar el sistema y a las tecnologías disponibles.
+
+\subsubsection{Requisitos de seguridad}
+El sistema cumple el requisito \textbf{S.2}, ya que el servidor web utiliza el protocolo HTTPS para asegurar la comunicación con el cliente.
+
+Sin embargo, al realizar el entrenamiento del modelo en una instancia remota, no se ha podido cumplir el requisito \textbf{S.1}.
+Además, para garantizar la seguridad del sistema, sería necesario realizar un estudio de las vulnerabilidades del mismo.
+
 
 
 \section{Lecciones aprendidas}
